@@ -11,5 +11,11 @@ body{
     height: auto;
     background-color: #212529;
 }
+@media (max-width:576px) {
+    video{
+        width: auto;
+        height: auto;
+    }
+}
 
 
