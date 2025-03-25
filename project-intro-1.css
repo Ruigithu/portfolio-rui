@@ -1,0 +1,11 @@
+.intro{
+    margin-top: 30px;
+}
+.intro p,
+.intro li,
+.intro dd,
+.intro dt{
+    text-align: left;
+} 
+
+
