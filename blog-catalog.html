@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./bootstrap-5.0.2-dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="./base.css">
+    <link rel="stylesheet"  href="./blog-catalog.css">
+</head>
+<body class="d-flex text-center text-bg-dark" >
+    <div class="cover-container d-flex w-100 p-3 mx-auto flex-column">
+        <header class="mb-auto">
+          <div>
+            <h3 class="float-md-start mb-0">Rui Peng</h3>
+            <nav class="nav nav-masthead justify-content-center float-md-end">
+              <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="./index.html">Home</a>
+              <a class="nav-link fw-bold py-1 px-0" href="./project-display.html">My Project</a>
+              <a class="nav-link fw-bold py-1 px-0" href="./blog-catalog.html">Blog</a>
+              <a class="nav-link fw-bold py-1 px-0" href="./about-me.html">About Me</a>
+            </nav>
+          </div>
+        </header>
+        <div class="blog-catalog">
+            <div class="dropdown">
+                <div class="dropdown-header" onclick="toggleDropdown(this)">Database</div>
+                <div class="dropdown-content">
+                    <a href="./assets/articles/database/01how-seach-for-data.html">1. How does MySQL search for data?</a>
+                    <a href="#">2. #</a>
+                    <a href="#">3. #</a>
+                </div>
+            </div>
+        
+            <div class="dropdown">
+                <div class="dropdown-header" onclick="toggleDropdown(this)">backend</div>
+                <div class="dropdown-content">
+                    <p>• <a href="#">#</a></p>
+                    <p>• <a href="#">#</a></p>
+                    <p>• <a href="#">#</a></p>
+                </div>
+            </div>
+        
+            <div class="dropdown">
+                <div class="dropdown-header" onclick="toggleDropdown(this)">design pattern</div>
+                <div class="dropdown-content">
+                    <p>• <a href="#">#</a></p>
+                    <p>• <a href="#">#</a></p>
+                    <p>• <a href="#">#</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <script>
+        function toggleDropdown(header) {
+
+            const content = header.nextElementSibling;
+            content.classList.toggle('show');
+
+            header.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
