@@ -5,8 +5,107 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
         <link rel="stylesheet" href="./bootstrap-5.0.2-dist/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="./prism/prism.css">
         <link rel="stylesheet" href="./base.css">
         <link rel="stylesheet" href="./project-intro-1.css">
+
+        <style>
+          pre[class*="language-"],
+          code[class*="language-"] {
+              font-size: 13px !important;
+              line-height: 1.4 !important;
+              background-color: #333;
+          }
+          .code-container {
+              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+              max-width: 800px;
+              margin: 20px auto;
+              border-radius: 8px;
+              overflow: hidden;
+              box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+          }
+          
+          .code-tabs {
+              display: flex;
+              background-color: #f0f0f0;
+              border-bottom: 1px solid #ddd;
+          }
+          
+          .tab-button {
+              padding: 10px 15px;
+              border: none;
+              background: none;
+              font-size: 14px;
+              cursor: pointer;
+              font-weight: 500;
+              color: #555;
+              border-bottom: 2px solid transparent;
+          }
+          
+          .tab-button:hover {
+              background-color: #e0e0e0;
+          }
+          
+          .tab-button.active {
+              background-color: #fff;
+              border-bottom: 2px solid #4f86ed;
+              color: #333;
+          }
+          
+          .code-display {
+              overflow-x: auto;
+          }
+          
+          .code-content {
+              display: none;
+              margin: 0 !important;
+          }
+          
+          .code-content.active {
+              display: block;
+          }
+          
+          .code-toolbar {
+              display: flex;
+              justify-content: flex-end;
+              padding: 8px 15px;
+              background-color: #f0f0f0;
+              border-top: 1px solid #ddd;
+          }
+          
+          .copy-button {
+              display: flex;
+              align-items: center;
+              padding: 5px 10px;
+              font-size: 12px;
+              background-color: transparent;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              cursor: pointer;
+          }
+          
+          .copy-button:hover {
+              background-color: #e0e0e0;
+          }
+          
+          .copy-icon {
+              width: 16px;
+              height: 16px;
+              margin-left: 5px;
+          }
+          code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            border-radius: 3px;
+            font-size: 0.9em;
+            text-shadow: none;
+            color: #D4B06A; 
+            font-weight: normal;
+            background-color: rgba(212, 176, 106, 0.1); /* 微弱的高亮背景 */
+            padding: 0 3px;
+            border-radius: 2px;
+          }
+            
+        </style>
     </head>
     <body class="d-flex text-center text-bg-dark" >
         <div class="cover-container d-flex w-100  p-3 mx-auto flex-column">
@@ -23,136 +122,778 @@
             </header>
             
             <div class="col-md-12 intro">
-                <h3 class="pb-4 mb-4 fst-italic border-bottom">
-                  From the Firehose
+                <h3 class="pb-4 mb-4 fst-italic border-bottom" >
+                  Project
                 </h3>
           
                 <article class="blog-post">
-                  <h2 class="display-5 link-body-emphasis mb-1">Sample blog post</h2>
-                  <p class="blog-post-meta">January 1, 2021 by <a href="#">Mark</a></p>
-                  <video width="600" height="450" controls>
+                  <h2 class="display-5 link-body-emphasis mb-1" id="top">Cloud Storage Introduction</h2><br>
+                  <p class="blog-post-meta" style="text-align:center">March 31, 2025 by Rui Peng</p>
+                  <p>Hi! I'm Rui. In this video, I'll walk you through the features and functionality of this project. Key code snippets will be explained in the following post.
+                  </p>
+                  <video width="900px" height="auto" controls>
                     <source src="./assets/project-videos/cloud-storage-project.mp4" type="video/mp4">
                     <source src="./assets/images/bg.jpg" type="video/ogg">
                   Your browser does not support the video tag.
                 </video>
-                  <p>This blog post shows a few different types of content that’s supported and styled with Bootstrap. Basic typography, lists, tables, images, code, and more are all supported as expected.</p>
+                  <p> 🎈 I initially attempted to deploy this <a href="https://dazzling-semolina-328a99.netlify.app/" >project</a> on Netlify, Render, and Neon using Docker. However, due to the slow response time of Render, I decided to showcase the project through videos instead. Additionally, I didn't maintain version consistency between the deployed and local versions—the deployed version uses JWT for user authentication and an S3 bucket for storing uploaded files. I'll be explaining these aspects as well.</p>
                   <hr>
-                  <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-                  <h2>Blockquotes</h2>
-                  <p>This is an example blockquote in action:</p>
-                  <blockquote class="blockquote">
-                    <p>Quoted text goes here.</p>
-                  </blockquote>
-                  <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-                  <h3>Example lists</h3>
-                  <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout. This is an example unordered list:</p>
-                  <ul>
-                    <li>First list item</li>
-                    <li>Second list item with a longer description</li>
-                    <li>Third list item to close it out</li>
+                  <p>
+                    This project originally stemmed from a Udacity course, which was quite basic, focusing mainly on backend development with simple file upload and display functionalities.  
+                    I replaced the initial Thymeleaf pages with the React framework, redesigned the UI, and attempted to model it after <i><strong>Google Drive</strong></i> to expand it into a SaaS web application.  
+                    In addition to core features like file upload, download, creation, and deletion, I also experimented with implementing <strong>online collaborative editing</strong> using WebSocket. Unfortunately, I was unable to fully achieve this functionality.  
+                    As an alternative, I adapted the feature to enable file sharing via generated links.  
+                    In the following sections, I will introduce key implementations, including <a href="#jwt">JWT Security</a>, <a href="#uploadingFile">file uploading functionalities</a>, and<a href="#websocket"> WebSocket integration</a>.
+                </p>
+                
+                  <h3 id="jwt">JWT Security</h3>
+                  <p>JWT Security is a stateless way to pass user authetication and Authorization information.
+                    I learned it with Spring Security, but used it when I finally try to deploy my project. 
+                    The issue is that when I deploy the backend project on the Render, 
+                    because its design to save costs for a free tire user, it will restart the server if the backend services are not used(over 15 minutes).
+                    Which lead to the lost of session that store the Authentication Object. When user request backend service with 'credentials', Spring Security can't 
+                    verify user's authentication and the frontend will redirect it to the login pages, extremely  detracting user experience.
+                  </p>
+                  <p>With the intention of not spending more money, I turned to JWT Security. It's feature is stateless, meaning that the server will not 
+                    hold a session, instead, the bcakend will use <strong><i>secret key and HMAC_SHA256</i></strong> to generate signature for the user authentication 
+                    information, finally combine them as a JWT token and send to client side. Even if the server restarts and user request services, the server will 
+                    reload the secret key and calculate the signature with the recieved user information, if they match,JWT will set the authtication object in the 
+                    contextholder to make sure the user can then get the resources within AuthorizationFilter.</p>
+                    <!-- <p>frontend store JWT using HttpOnly to avoid XSS attack</p> -->
+                  <p>The following three code files respectively show the tools of generating token and verify token(jwtService), 
+                      how to verify the authentication of one request(filter), and when to use the JWT verification tools(Security Config). </p>
+                  <div class="code-container">
+                    <div class="code-tabs">
+                        <button class="tab-button active" data-tab="jwtService">JWTService.java</button>
+                        <button class="tab-button" data-tab="jwtFilter">JWTFilter.java</button>
+                        <button class="tab-button" data-tab="securityConfig">SecurityConfig.java</button>
+                    </div>
+            
+                    <div class="code-display">
+                        <pre id="jwtService" class="code-content active"><code class="language-java">
+        @Service
+        public class JWTService {
+            @Value("${security.jwt.secret-key}")
+            private String secretKey;
+        
+            @Value("${security.jwt.expiration-time}")
+            private  long expireTime;
+        
+            public String generateToken(String username) {
+                Map<String, Object> claims = new HashMap<>();
+                claims.put("sub", username);
+        
+                return Jwts.builder()
+                        .claims(claims)
+                        .issuedAt(new Date(System.currentTimeMillis()))
+                        .expiration(new Date(System.currentTimeMillis() + expireTime))
+                        .signWith(getKey())
+                        .compact();
+            }
+        
+            private SecretKey getKey() {
+                byte[] decode = Decoders.BASE64.decode(secretKey);
+                return Keys.hmacShaKeyFor(decode);
+            }
+        
+            public String extractUserName(String token) {
+                return extractClaim(token, Claims::getSubject);
+            }
+        
+            private <T> T extractClaim(String token, Function<Claims, T> claimResolver) {
+                final Claims claims = extractAllClaims(token);
+                return claimResolver.apply(claims);
+            }
+        
+            private Claims extractAllClaims(String token) {
+                return Jwts.parser()
+                        .verifyWith(getKey())
+                        .build()
+                        .parseSignedClaims(token)
+                        .getPayload();
+            }
+        
+            public boolean validateToken(String token, UserDetails userDetails) {
+                final String userName = extractUserName(token);
+                return (userName.equals(userDetails.getUsername()) &&!isTokenExpired(token));
+            }
+        
+            private boolean isTokenExpired(String token) {
+                return extractExpiration(token).before(new Date());
+            }
+        
+            private Date extractExpiration(String token) {
+                return extractClaim(token, Claims::getExpiration);
+            }
+        }
+                        </code></pre>
+            
+                        <pre id="jwtFilter" class="code-content"><code class="language-java">
+        @Component
+        public class JWTFilter extends OncePerRequestFilter {
+        
+            @Autowired
+            private JWTService jwtService;
+        
+            @Autowired
+            private AppUserDetailsService userDetailsService;
+        
+            @Override
+            protected void doFilterInternal(@NonNull HttpServletRequest request,
+                                            @NonNull HttpServletResponse response,
+                                            @NonNull FilterChain filterChain) throws ServletException, IOException {
+        
+                String authorization = request.getHeader("Authorization");
+                String token =null;
+                String userEmail=null;
+                if (authorization != null && authorization.startsWith("Bearer ")) {
+                    token = authorization.substring(7);
+                    userEmail = jwtService.extractUserName(token);
+                }
+                try{
+                    if (userEmail != null && SecurityContextHolder.getContext().getAuthentication()==null) {
+        
+                        UserDetails userDetails = userDetailsService.loadUserByUsername(userEmail);
+        
+                        if(jwtService.validateToken(token,userDetails)){
+                            UsernamePasswordAuthenticationToken authToken =
+                                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                            authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                            SecurityContextHolder.getContext().setAuthentication(authToken);
+                        }
+                    }
+                    filterChain.doFilter(request, response);
+                } catch (BeansException | ServletException | IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+                        </code></pre>
+                        
+                        <pre id="securityConfig" class="code-content"><code class="language-java">
+        @Configuration
+        @EnableWebSecurity
+        public class SecurityConfig {
+            private final AppUserDetailsService userDetailsService;
+            private final AppAuthenticationFailureHandler failureHandler;
+            private final CorsFilter corsFilter;
+            private final CorsConfiguration corsConfiguration;
+            private final JWTService jwtService;
+            private final JWTFilter jwtFilter;
+        
+        
+            @Autowired
+            public SecurityConfig(AppUserDetailsService userDetailsService, AppAuthenticationFailureHandler failureHandler, CorsFilter corsFilter, CorsConfiguration corsConfiguration, JWTService jwtService, JWTFilter jwtFilter) {
+                this.userDetailsService = userDetailsService;
+                this.failureHandler = failureHandler;
+                this.corsFilter = corsFilter;
+                this.corsConfiguration = corsConfiguration;
+                this.jwtService = jwtService;
+                this.jwtFilter = jwtFilter;
+            }
+        
+        
+        
+        
+            @Bean
+            public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+                http.addFilterBefore(corsFilter, SessionManagementFilter.class)
+                        .csrf(csrf -> csrf.disable())
+                        .cors(cors -> cors.configurationSource(request -> corsConfiguration))
+                        .authorizeHttpRequests(authorize -> authorize
+                                .requestMatchers(
+                                        "/signup",
+                                        "/login",
+                                        "/share/**",
+                                        "/download",
+                                        "/css/**",
+                                        "/js/**",
+                                        "/h2-console/**"
+                                ).permitAll()
+                                .anyRequest().authenticated()
+                        )
+                        .exceptionHandling(ex -> ex
+                                .authenticationEntryPoint((request, response, authException) -> {
+                                    boolean isApiRequest = request.getHeader("Accept") != null &&
+                                            request.getHeader("Accept").contains("application/json") ||
+                                            request.getRequestURI().startsWith("/share/");
+        
+                                    if (isApiRequest) {
+                                        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                                        response.setContentType("application/json");
+                                        response.getWriter().write("{\"error\":\"Unauthorized\"}");
+                                    } else {
+                                        response.sendRedirect("/login");
+                                    }
+                                })
+                        ).sessionManagement(session -> session
+                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                        )
+                        .formLogin(form -> form
+                                .loginPage("/login")
+                                .loginProcessingUrl("/login")
+                                .successHandler((request, response, authentication) -> {
+                                    if (request.getHeader("Accept") != null &&
+                                            request.getHeader("Accept").contains("application/json")) {
+                                        String username = authentication.getName();
+                                        String token = jwtService.generateToken(username);
+        
+                                        response.setStatus(HttpServletResponse.SC_OK);
+                                        response.setContentType("application/json");
+                                        response.getWriter().write(
+                                                String.format("{\"success\":true,\"token\":\"%s\",\"username\":\"%s\"}",
+                                                        token, username));
+                                    } else {
+                                        response.sendRedirect("/home");
+                                    }
+                                })
+                                .failureHandler((request, response, exception) -> {
+                                    if (request.getHeader("Accept") != null &&
+                                            request.getHeader("Accept").contains("application/json")) {
+                                        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                                        response.setContentType("application/json");
+                                        response.getWriter().write("{\"error\":\"Invalid credentials\"}");
+                                    } else {
+                                        failureHandler.onAuthenticationFailure(request, response, exception);
+                                    }
+                                })
+                                .permitAll()
+                        );
+        
+                http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        
+                return http.build();
+            }
+        
+            @Bean
+            //AuthenticationConfiguration will collect Provider automatically,included the one we registered
+            public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+                return authenticationConfiguration.getAuthenticationManager();
+            }
+        
+            @Bean
+            public DaoAuthenticationProvider providerManager() throws Exception {
+                DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+                provider.setUserDetailsService(userDetailsService);
+                provider.setPasswordEncoder(getPasswordEncoder());
+                return provider;
+            }
+        
+            @Bean
+            public PasswordEncoder getPasswordEncoder() {
+                return new BCryptPasswordEncoder(16);
+            }
+        
+        }
+                        </code></pre>
+
+                    </div>
+                    
+                    <div class="code-toolbar">
+                        <button class="copy-button" id="copyButton">
+                            copy
+                            <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                        </button>
+                    </div>
+                  </div>
+                  <p>When we want to use the JWT, we also need the frontend's collaboration——store it and take it when we send a request.</p>
+                  <div class="code-container">
+                    <div class="code-tabs">
+                        <button class="tab-button active" data-tab="login">login.jsx</button>
+                        <button class="tab-button" data-tab="api">api.jsx</button>
+                        <button class="tab-button" data-tab="application">SecurityConfig.java</button>
+                    </div>
+            
+                    <div class="code-display">
+                        <pre id="login" class="code-content active"><code class="language-javascript">
+                function Login(){
+                  const[username,setUsername]=useState('');
+                  const[password,setPassword]=useState('');
+                  const navigate = useNavigate();
+                  const[error, setError] = useState('');
+              
+                  const handleSubmit = async (e)=>{
+                      e.preventDefault();
+              
+                      const formData = new URLSearchParams();
+                      formData.append('username', username.trim());
+                      formData.append('password', password.trim());
+              
+                      try {
+                          const response = await fetch(`${process.env.REACT_APP_API_URL}/login`, {
+                              method: 'POST',
+                              headers: {
+                                  'Content-Type': 'application/x-www-form-urlencoded',
+                                  'Accept': 'application/json'
+                              },
+                              body: formData.toString(),
+                              credentials: 'include'
+                          });
+              
+                          if (response.ok){
+                              const data = await response.json();
+                              if (data.token) {
+                                //{"success":true,"token":"abc123","username":"rui"}
+                                  localStorage.setItem('token', data.token);
+                                  localStorage.setItem('isLoggedIn', 'true');
+                                  if (data.username) {
+                                      localStorage.setItem('username', data.username);
+                                  }
+                                  navigate('/home');
+              
+                                  console.log("Login successful, token received");
+                              } else {
+                                  setError('Login succeeded but no token received');
+                                  console.error('No token received');
+                              }
+                          } else {
+
+                              setError('Invalid username or password');
+                              console.error('Login failed:', response.status);
+                          }
+                      } catch (error) {
+                          setError('Login failed. Please try again.');
+                          console.error('Login failed:', error);
+                      }
+                  }
+                        </code></pre>
+            
+                        <pre id="api" class="code-content"><code class="language-javascript">
+                  const apiRequest = async (url, options = {}) => {
+                    const token = localStorage.getItem('token');
+                
+                    if (token) {
+                        options.headers = {
+                            ...options.headers,
+                            'Authorization': `Bearer ${token}`
+                        };
+                    }
+                    
+                    const response = await fetch(url, options);
+                    
+                    if (response.status === 401) {
+                        localStorage.removeItem('token');
+                        localStorage.removeItem('isLoggedIn');
+                        window.location.href = '/login'; 
+                        return null;
+                    }
+                
+                    return response;
+                };
+                
+                export default apiRequest;
+                        </code></pre>
+                        
+
+                    </div>
+                    
+                    <div class="code-toolbar">
+                        <button class="copy-button" id="copyButton">
+                            copy
+                            <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                        </button>
+                    </div>
+                  </div>
+            
+
+                  <h3 id="uploadingFile">Uploading Files Functionality</h3>
+                  <p style="text-align: left;">The uploading file API is the core srvice of this project, which connects with other APIs and also shows the structre of my database design.</p>
+                  <ul style="text-align: left;">
+                    <li><h6 style=" color:#E6C200">Database tables design</h6>
+
+                        <p>Firstly, I want to implement the functions of user permission management and version control, I have already created the tables to store meta data of files and folders data, to 
+                            reduce the fields of those two tables and enhance normaliztion, I partitioned tables of <code>file_permissions</code> and <code>file-versions</code>.
+                            And constraint key also added for them for the future complicated JOIN query. </p>
+                        <p>So due to the connection relatonships between tables, when I try to upload the file, I have to update the data on the other two tables. 
+                            And to maintain the data consistency, I added annotation <code>@Transactional</code>, which will roll back if the exceptions happen during the saving process.</p>
+                    </li>
+                    <li><h6 style=" color:#E6C200">Where do I save the real file? </h6>
+
+                        <p>
+                            When I’m in the dev stage, I like to keep things simple and local.I use <code>Paths.get()</code> to build a local storage path. It’s based on a baseStoragePath (think of it as the root directory), plus the user’s ID and folder ID. 
+                            So, the path ends up looking something like <code>/storage/123/456/</code>.
+                            Then, I use <code>file.transferTo(filePath.toFile())</code> to save the uploaded file straight to that path on the disk.
+                            In the database, I store the file’s version info, and the storagePath in the version record points to that local path—like <code>/storage/123/456/file_v1.txt</code>.
+                        </p>
+                        <div class="code-container">
+                            <div class="code-tabs">
+                                <button class="tab-button active" data-tab="local">local storage</button>
+                            </div>
+                    
+                            <div class="code-display">
+                                <pre id="local" class="code-content active"><code class="language-javascript">
+            String originalFilename = file.getOriginalFilename();
+
+
+            String subPath = "";
+            String fileName = originalFilename;
+    
+    
+            if (originalFilename != null && (originalFilename.contains("/") || originalFilename.contains("\\"))) {
+                Path fullPath = Paths.get(originalFilename);
+                fileName = fullPath.getFileName().toString();
+                if (fullPath.getParent() != null) {
+                    subPath = fullPath.getParent().toString();
+                }
+            }
+    
+    
+            String fileExtension = "";
+            String nameWithoutExtension = fileName;
+    
+    
+            int lastDotIndex = fileName.lastIndexOf(".");
+            if (lastDotIndex > 0) {
+                nameWithoutExtension = fileName.substring(0, lastDotIndex);
+                fileExtension = fileName.substring(lastDotIndex);
+            }
+            // 1. files 表table
+            File newFile = new File();
+            newFile.setName(fileName); // save original file name(extension included)
+            newFile.setFolderId(folderId);
+            newFile.setOwnerId(ownerId);
+            newFile.setMimeType(file.getContentType());
+            newFile.setSize(file.getSize());
+            fileMapper.insertFile(newFile);
+    
+    
+            // 2. version table
+            int versionNumber = 1;
+    
+    
+            // construct new name
+            String newFileName = String.format("%s_v%d%s", nameWithoutExtension, versionNumber, fileExtension);
+    
+            // make sure no repeating
+            Path directoryPath;
+            if (subPath.isEmpty()) {
+                directoryPath = Paths.get(baseStoragePath, ownerId.toString(), Long.toString(folderId));
+            } else {
+                directoryPath = Paths.get(baseStoragePath, ownerId.toString(), Long.toString(folderId), subPath);
+            }
+    
+            System.out.println("directoryPath:" + directoryPath);
+            Path filePath = directoryPath.resolve(newFileName);
+    
+            // construct parent folder
+            try {
+                Files.createDirectories(directoryPath);
+            } catch (IOException e) {
+                throw new IOException("Failed to create directories: " + directoryPath, e);
+            }
+    
+            // save file
+            try {
+                file.transferTo(filePath.toFile());
+            } catch (IOException e) {
+                throw new IOException("Failed to store file at: " + filePath, e);
+            }
+                                </code></pre>                    
+                            </div>
+                            
+                            <div class="code-toolbar">
+                                <button class="copy-button" id="copyButton">
+                                    copy
+                                    <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <p>
+                            when it’s time to deploy the app and go live, I switch things up and use AWS S3 for file storage. 
+                            Instead of a local path, I construct an s3Key, which is basically the file’s "path" in S3. 
+                            It’s structured like <code>ownerId/folderId/subPath/fileId_v1.extension</code>, so it might look like <code>123/456/file_789_v1.txt</code>.
+                            I use a service called <code>s3StorageService.uploadFile(file, s3Key)</code> to upload the file to S3. 
+                            In the database, the storagePath in the version record now stores that s3Key, so it’s something like <code>123/456/file_789_v1.txt</code>.
+                            Well, it’s perfect for a live app because it handles backups automatically, and works great in a distributed setup where multiple servers need access to the files.
+                        </p>
+                        <div class="code-container">
+                            <div class="code-tabs">
+                                <button class="tab-button active" data-tab="s3">AWS S3</button>
+                                <button class="tab-button " data-tab="s3-service">S3 Service</button>
+                            </div>
+                    
+                            <div class="code-display">
+                                <pre id="s3" class="code-content active"><code class="language-javascript">
+            String originalFilename = file.getOriginalFilename();
+            if (originalFilename == null) {
+                throw new IllegalArgumentException("File name cannot be null");
+            }
+    
+            String subPath = "";
+            String fileName = originalFilename;
+    
+            if (originalFilename.contains("/") || originalFilename.contains("\\")) {
+                Path fullPath = Paths.get(originalFilename);
+                fileName = fullPath.getFileName().toString();
+                if (fullPath.getParent() != null) {
+                    subPath = fullPath.getParent().toString();
+                }
+            }
+    
+            String fileExtension = "";
+            String nameWithoutExtension = fileName;
+    
+            int lastDotIndex = fileName.lastIndexOf(".");
+            if (lastDotIndex > 0) {
+                nameWithoutExtension = fileName.substring(0, lastDotIndex);
+                fileExtension = fileName.substring(lastDotIndex);
+            }
+    
+            // 1. Insert file metadata
+            File newFile = new File();
+            newFile.setName(fileName);
+            newFile.setFolderId(folderId);
+            newFile.setOwnerId(ownerId);
+            newFile.setMimeType(file.getContentType());
+            newFile.setSize(file.getSize());
+            fileMapper.insertFile(newFile);
+    
+            // 2. Generate S3 key and upload
+            int versionNumber = 1;
+            String s3Key = String.format("%s/%s/%s/%s_v%d%s",
+                    ownerId.toString(),
+                    folderId.toString(),
+                    subPath.replace("\\", "/"), // Ensure consistent path separator
+                    newFile.getId().toString(),
+                    versionNumber,
+                    fileExtension);
+            s3StorageService.uploadFile(file, s3Key);
+                                </code></pre>
+                                <pre id="s3-service" class="code-content"><code class="language-javascript">
+    public S3StorageService(
+            @Value("${cloud.aws.credentials.access-key}") String accessKey,
+            @Value("${cloud.aws.credentials.secret-key}") String secretKey,
+            @Value("${cloud.aws.region.static}") String region,
+            @Value("${cloud.aws.s3.bucket}") String bucketName) {
+
+        this.bucketName = bucketName;
+        this.s3Client = AmazonS3ClientBuilder.standard()
+                .withCredentials(new AWSStaticCredentialsProvider(
+                        new BasicAWSCredentials(accessKey, secretKey)))
+                .withRegion(region)
+                .build();
+    }
+
+
+    public String uploadFile(MultipartFile file, String keyName) throws IOException {
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentLength(file.getSize());
+        metadata.setContentType(file.getContentType());
+
+        try (InputStream inputStream = file.getInputStream()) {
+            s3Client.putObject(bucketName, keyName, inputStream, metadata);
+        }
+
+        return keyName;
+    }
+                                                        </code></pre>                      
+                            </div>
+                            
+                            <div class="code-toolbar">
+                                <button class="copy-button" id="copyButton">
+                                    copy
+                                    <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                    <li><h6 style=" color:#E6C200">Uploading Folders: Handling Hierarchical File Uploads </h6>
+
+                        <p>
+                           Uploading folder is another core feature of my project. Because its usage of uploading file, so I'll introduce it as well.  
+                        </p>
+                        <div class="code-container">
+                            <div class="code-tabs">
+                                <button class="tab-button active" data-tab="method">java</button>
+                            </div>
+                    
+                            <div class="code-display">
+                                <pre id="method" class="code-content active"><code class="language-javascript">
+    public void uploadFolder(MultipartFile[] files, String[] relativePaths, Long userId, Long parentFolderId) 
+            throws IOException, SQLException, NotFoundException {}
+                                </code></pre>                      
+                            </div>
+                            
+                            <div class="code-toolbar">
+                                <button class="copy-button" id="copyButton">
+                                    copy
+                                    <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <strong>Logic breakdown</strong><br>
+                        <ol>
+                            <li>
+                                Initialize Parent Folder:
+                                
+                                <p>If no parentFolderId is provided, it defaults to the user’s root folder (created via initRootFolderForUser).
+                                </p>
+                            </li>
+                            <li>
+                                Validate and Check Permissions:
+                                <p>Ensure the parent folder exists; if not, throw a NotFoundException.
+                                </p>
+                                <p>For non-root folders, verify the user has write permissions (e.g., ADMIN or WRITE), or throw an AccessDeniedException.
+                                </p>
+                            </li>
+                            <li>
+                                Build Folder Structure:
+                                <p>Use a <code>Map<String, Long> (pathToFolderIdMap)</code> to track folder paths and their IDs, starting with the parent folder mapped to an empty path ("").
+                                For each file’s relativePath (e.g., <code>"folder1/folder2/file.txt"</code>), extract the folder path ("folder1/folder2") and create any missing folders using createFolderStructure.
+                                This method splits the path into segments (e.g., ,<code>["folder1", "folder2"]</code>) and builds the hierarchy layer by layer, reusing existing folders when possible.
+                                </p>
+                            </li>
+                            <li>
+                                The createFolder Method: At the heart of this process is createFolder, which is called for each new folder:
+                                Signature: <code>public Folder createFolder(String name, Long parentId, Long userId)</code>.
+                                <ul><strong>Steps:</strong><br>
+                                <li> If parentId is null, it defaults to the root folder.</li>
+                                <li> Validates the parent folder’s existence and the user’s write permissions.</li>
+                                <li> Creates a Folder object with the given name, parent ID, and owner ID, setting a temporary ltree path ("temp").</li>                                
+                                <li> Inserts it into the database, then updates the ltree path (e.g., "1.123" for a subfolder).</li>
+                                <li> Grants the user ADMIN permissions.</li>
+                                <li> This ensures each folder is fully initialized with a unique path and proper access control, seamlessly integrating with the hierarchical system.</li>
+                            
+                                </ul>
+                            <li>
+                                Upload Files:
+                                <p>Iterate through the files, map each to its target folder ID from the pathToFolderIdMap, and call fileService.uploadFile to store them.
+                                </p>
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        <div>
+                            <p>A standout feature of this design is the use of PostgreSQL’s <code>ltree</code> type to manage folder paths. Here’s why it’s a game-changer:</p>
+                        
+        
+                            <h4>What is <code>ltree</code>?</h4>
+                            <p>
+                                <span class="description">A data type for representing tree-like paths (e.g., "1.2.3")</span>, with built-in support for hierarchical queries. It’s stored as a single column and optimized with GiST indexes.
+                            </p>
+                        
+                            <!-- Benefits -->
+                            <h4>Benefits</h4>
+                        
+                            <!-- Intuitive Representation -->
+                            <p>
+                                <strong>Intuitive Representation:</strong><br>
+                                <span class="description">Maps directly to folder hierarchies (e.g., "root.subfolder.grandchild").</span><br>
+                                In my code, paths are built by concatenating IDs (e.g., <code>parentPath + "." + folderId</code>).
+                            </p>
+                        
+                            <!-- Efficient Hierarchical Queries -->
+                            <p>
+                                <strong>Efficient Hierarchical Queries:</strong><br>
+                                <span class="description">Traditional methods (e.g., parent-child tables) require recursive SQL, which scales poorly.</span><br>
+                                <code>ltree</code> offers operators like:
+                            </p>
+                            <ul>
+                                <li>
+                                    <code>@></code>: Is ancestor? (e.g., <code>"1.2" @> "1.2.3"</code>)
+                                </li>
+                                <li>
+                                    <code>&lt;@</code>: Is descendant? (e.g., <code>"1.2.3" &lt;@ "1.2"</code>)
+                                </li>
+                                <li>
+                                    <code>nlevel()</code>: Get depth (e.g., <code>nlevel("1.2.3")</code> returns 3)
+                                </li>
+                            </ul>
+                            <p>
+                                Example: <code>SELECT * FROM folders WHERE path &lt;@ '1'</code> retrieves all subfolders of "1".
+                            </p>
+                        
+                            <!-- Performance -->
+                            <p>
+                                <strong>Performance:</strong><br>
+                                <span class="description">GiST indexing makes queries logarithmic in complexity, even for deep trees.</span><br>
+                                No need for complex joins or recursive CTEs.
+                            </p>
+                        
+                            <!-- Simplicity -->
+                            <p>
+                                <strong>Simplicity:</strong><br>
+                                <span class="description">One field replaces multiple columns (e.g., left/right values in nested sets).</span><br>
+                                Easy to maintain and update (e.g., <code>folderMapper.updatePath</code>).
+                            </p>
+                        
+                        </div>
+                    </li>
+
                   </ul>
-                  <p>And this is an ordered list:</p>
-                  <ol>
-                    <li>First list item</li>
-                    <li>Second list item with a longer description</li>
-                    <li>Third list item to close it out</li>
-                  </ol>
-                  <p>And this is a definition list:</p>
-                  <dl>
-                    <dt>HyperText Markup Language (HTML)</dt>
-                    <dd>The language used to describe and define the content of a Web page</dd>
-                    <dt>Cascading Style Sheets (CSS)</dt>
-                    <dd>Used to describe the appearance of Web content</dd>
-                    <dt>JavaScript (JS)</dt>
-                    <dd>The programming language used to build advanced Web sites and applications</dd>
-                  </dl>
-                  <h2>Inline HTML elements</h2>
-                  <p>HTML defines a long list of available inline tags, a complete list of which can be found on the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">Mozilla Developer Network</a>.</p>
-                  <ul>
-                    <li><strong>To bold text</strong>, use <code class="language-plaintext highlighter-rouge">&lt;strong&gt;</code>.</li>
-                    <li><em>To italicize text</em>, use <code class="language-plaintext highlighter-rouge">&lt;em&gt;</code>.</li>
-                    <li>Abbreviations, like <abbr title="HyperText Markup Language">HTML</abbr> should use <code class="language-plaintext highlighter-rouge">&lt;abbr&gt;</code>, with an optional <code class="language-plaintext highlighter-rouge">title</code> attribute for the full phrase.</li>
-                    <li>Citations, like <cite>— Mark Otto</cite>, should use <code class="language-plaintext highlighter-rouge">&lt;cite&gt;</code>.</li>
-                    <li><del>Deleted</del> text should use <code class="language-plaintext highlighter-rouge">&lt;del&gt;</code> and <ins>inserted</ins> text should use <code class="language-plaintext highlighter-rouge">&lt;ins&gt;</code>.</li>
-                    <li>Superscript <sup>text</sup> uses <code class="language-plaintext highlighter-rouge">&lt;sup&gt;</code> and subscript <sub>text</sub> uses <code class="language-plaintext highlighter-rouge">&lt;sub&gt;</code>.</li>
-                  </ul>
-                  <p>Most of these elements are styled by browsers with few modifications on our part.</p>
-                  <h2>Heading</h2>
-                  <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-                  <h3>Sub-heading</h3>
-                  <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-                  <pre><code>Example code block</code></pre>
-                  <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
-                </article>
-          
-                <article class="blog-post">
-                  <h2 class="display-5 link-body-emphasis mb-1">Another blog post</h2>
-                  <p class="blog-post-meta">December 23, 2020 by <a href="#">Jacob</a></p>
-          
-                  <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-                  <blockquote>
-                    <p>Longer quote goes here, maybe with some <strong>emphasized text</strong> in the middle of it.</p>
-                  </blockquote>
-                  <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-                  <h3>Example table</h3>
-                  <p>And don't forget about tables in these posts:</p>
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Upvotes</th>
-                        <th>Downvotes</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Alice</td>
-                        <td>10</td>
-                        <td>11</td>
-                      </tr>
-                      <tr>
-                        <td>Bob</td>
-                        <td>4</td>
-                        <td>3</td>
-                      </tr>
-                      <tr>
-                        <td>Charlie</td>
-                        <td>7</td>
-                        <td>9</td>
-                      </tr>
-                    </tbody>
-                    <tfoot>
-                      <tr>
-                        <td>Totals</td>
-                        <td>21</td>
-                        <td>23</td>
-                      </tr>
-                    </tfoot>
-                  </table>
-          
-                  <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
-                </article>
-          
-                <article class="blog-post">
-                  <h2 class="display-5 link-body-emphasis mb-1">New feature</h2>
-                  <p class="blog-post-meta">December 14, 2020 by <a href="#">Chris</a></p>
-          
-                  <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-                  <ul>
-                    <li>First list item</li>
-                    <li>Second list item with a longer description</li>
-                    <li>Third list item to close it out</li>
-                  </ul>
-                  <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
+                  
+                  <h3 id="websocket">Web Socket</h3>
+                  <p><strong>To be continue...</strong></p>                  
                 </article>
           
                 <nav class="blog-pagination" aria-label="Pagination">
-                  <a class="btn btn-outline-primary rounded-pill" href="#">Older</a>
-                  <a class="btn btn-outline-secondary rounded-pill disabled" aria-disabled="true">Newer</a>
+                  <a class="btn btn-outline-primary rounded-pill" href="#top">Back To Top</a>
                 </nav>
           
             </div>
         </div>
+        <script src="./prism/prism.js"></script>
+        <script>
+            // 选项卡切换功能
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    // 移除所有活动状态
+                    document.querySelectorAll('.tab-button').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    document.querySelectorAll('.code-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    // 添加活动状态到当前选中的选项卡和内容
+                    button.classList.add('active');
+                    const tabId = button.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+    
+            // 复制功能
+            document.getElementById('copyButton').addEventListener('click', () => {
+                const activeTab = document.querySelector('.code-content.active');
+                const textToCopy = activeTab.textContent;
+                
+                // 使用现代API复制文本
+                navigator.clipboard.writeText(textToCopy)
+                    .then(() => {
+                        // 显示复制成功提示
+                        const copyButton = document.getElementById('copyButton');
+                        const originalText = copyButton.textContent;
+                        copyButton.textContent = 'copied';
+                        
+                        // 3秒后恢复原文本
+                        setTimeout(() => {
+                            copyButton.innerHTML = originalText + `
+                                <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>`;
+                        }, 3000);
+                    })
+                    .catch(err => {
+                        console.error('can\'t copy it: ', err);
+                    });
+            });
+        </script>
     
 </body>
 </html>

@@ -11,9 +11,14 @@ body{
     height: auto;
     background-color: #212529;
 }
+.catalog{
+    display: flex;
+    flex-direction: row;
+}
+
 @media (max-width:576px) {
     video{
-        width: auto;
+        width: 90vw;
         height: auto;
     }
 }
