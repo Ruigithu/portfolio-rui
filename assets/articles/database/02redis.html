@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="../../../bootstrap-5.0.2-dist/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="../../../base.css">
+        <link rel="stylesheet" href="../../../project-intro-1.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.3.0/mermaid.min.js"></script>
+    <style>
+        body {
+            margin: 0 auto;
+            padding: 20px;
+            text-shadow: none;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .mermaid {
+            margin: 30px 0;
+            background-color:#212529 ;
+        }
+    </style>
+    </head>
+    <body class="d-flex text-center text-bg-dark" >
+        <div class="cover-container d-flex w-100 p-3 mx-auto flex-column">
+            <header class="mb-auto">
+              <div>
+                <h3 class="float-md-start mb-0">Rui Peng</h3>
+                <nav class="nav nav-masthead justify-content-center float-md-end">
+                  <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="../../../index.html">Home</a>
+                  <a class="nav-link fw-bold py-1 px-0" href="../../../project-display.html">My Project</a>
+                  <a class="nav-link fw-bold py-1 px-0" href="../../../blog-catalog.html">Blog</a>
+                  <a class="nav-link fw-bold py-1 px-0" href="../../../about-me.html">About Me</a>
+                </nav>
+              </div>
+            </header>
+            
+            <div class="col-md-12 intro">
+                <h3 class="pb-4 mb-4 fst-italic border-bottom">
+                  Database
+                </h3>
+          
+                <article class="blog-post">
+                  <h2 class="display-5 link-body-emphasis mb-1">Redis</h2>
+                  <br>
+                  <p class="blog-post-meta" style="text-align: center;">April 4, 2025 by <a href="#">Rui Peng</a></p>
+                  <p>This blog post shows what kind of strategy and data structure MySQL has used to search data as fast as posible.</p>
+                  <hr>
+                  <h2>Application Scenarios</h2>
+                    <div class="mermaid">
+                        graph LR  
+                            A[Redis] --> B[Caching] 
+                            A[Redis] --> C[Distributed Lock] 
+                            A[Redis] --> D[Counter] 
+                            A[Redis] --> E[Token Storage]  
+                            A[Redis] --> F[Message Queue] 
+                            A[Redis] --> G[Delayed Queue] 
+                            B-->H[Cache Penetration, Cache Breakdown, Cache Avalanche]
+                            C-->I[setnx,redisson]
+                            D-->J[Write-Through/Write-Back Consistency, Persistence]
+                            E & F & G-->K[Data Types]
+                                                        
+                    </div>
+                    
+                  <h2>Caching</h2>
+                  <p>Cache Penetration: query the data does not exist</p>
+                  <p>Cache Breakdown: when the key expired, simultaneously many users query the corresponding data and make database breakdown. </p>
+                  <p>Cache Avalanche: many keys expire at the same time, lead to many times visitings to DB, making DB breakdown.</p>
+                  
+                  <p>Write-Through/Write-Back Consistency: when update a data record that simultaneously in the database and int the Redis, how to avoid making the data dirty.
+                    There are two ways, one is to use distributed lock with the features of high consistency and low performnce.
+                    The another is RabbitMQ, allowing delay in a short time.
+                  </p>
+                  <p>Data Persistence: there are two ways to persist the data. One is using RDB(redis database backup), means write all the data in Redis to the disk, when the Redis restart,
+                    it can quicly read the snapshot from the disk.The another is AOF, means store the command line of writing data,like log. The latter is more data-compeleted
+                  </p>
+                </article>
+          
+                <nav class="blog-pagination" aria-label="Pagination">
+                  <a class="btn btn-outline-primary rounded-pill" href="#">Back To Top</a>
+                </nav>
+          
+            </div>
+        </div>
+        <script>
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: 'default'
+            });
+        </script>    
+</body>
+</html>

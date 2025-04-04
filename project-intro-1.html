@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="./prism/prism.css">
         <link rel="stylesheet" href="./base.css">
         <link rel="stylesheet" href="./project-intro-1.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.3.0/mermaid.min.js"></script>
 
         <style>
           pre[class*="language-"],
@@ -93,17 +94,26 @@
               height: 16px;
               margin-left: 5px;
           }
-          code {
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-            border-radius: 3px;
-            font-size: 0.9em;
+          
+
+         
+        body {
+            margin: 0 auto;
+            padding: 20px;
             text-shadow: none;
-            color: #D4B06A; 
-            font-weight: normal;
-            background-color: rgba(212, 176, 106, 0.1); /* 微弱的高亮背景 */
-            padding: 0 3px;
-            border-radius: 2px;
-          }
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .mermaid {
+            margin: 30px 0;
+            background-color:#FFFFDE ;
+            padding: 5px;
+            border-radius: 2px 2px;
+        }
+
+        
             
         </style>
     </head>
@@ -143,7 +153,7 @@
                     I replaced the initial Thymeleaf pages with the React framework, redesigned the UI, and attempted to model it after <i><strong>Google Drive</strong></i> to expand it into a SaaS web application.  
                     In addition to core features like file upload, download, creation, and deletion, I also experimented with implementing <strong>online collaborative editing</strong> using WebSocket. Unfortunately, I was unable to fully achieve this functionality.  
                     As an alternative, I adapted the feature to enable file sharing via generated links.  
-                    In the following sections, I will introduce key implementations, including <a href="#jwt">JWT Security</a>, <a href="#uploadingFile">file uploading functionalities</a>, and<a href="#websocket"> WebSocket integration</a>.
+                    In the following sections, I will introduce key implementations, including <a href="#jwt">JWT Security</a>, <a href="#uploadingFile">file uploading functionalities</a>, <a href="#websocket"> WebSocket integration</a> and <a href="#performance">Performance  Optimized</a>.
                 </p>
                 
                   <h3 id="jwt">JWT Security</h3>
@@ -404,7 +414,6 @@
                     <div class="code-tabs">
                         <button class="tab-button active" data-tab="login">login.jsx</button>
                         <button class="tab-button" data-tab="api">api.jsx</button>
-                        <button class="tab-button" data-tab="application">SecurityConfig.java</button>
                     </div>
             
                     <div class="code-display">
@@ -838,7 +847,159 @@
                   </ul>
                   
                   <h3 id="websocket">Web Socket</h3>
-                  <p><strong>To be continue...</strong></p>                  
+                  <p><strong>To be continue...</strong></p> 
+                  
+                  <h3 id="performance">Performence Optimized</h3>
+                  <p>The following flowchart shows how Spring Boot uploading the file:</p>
+                  <div class="mermaid" >
+                    flowchart TD
+                    subgraph "Client"
+                        A[User Browser/Client] --> B[Creates POST Request]
+                        B --> C[Content-Type: multipart/form-data]
+                    end
+                
+                    subgraph "Tomcat Server"
+                        D[Embedded Tomcat Server] --> E[Listens on Port 8080]
+                        E --> F[Receives HTTP Request]
+                    end
+                
+                    subgraph "Spring Boot Core"
+                        G[DispatcherServlet] --> H[StandardServletMultipartResolver]
+                        H --> I{File Size Check}
+                        I -->|< threshold| J[Store in Memory]
+                        I -->|> threshold| K[Store as Temporary File]
+                        
+                        J --> L[Create MultipartFile Object]
+                        K --> L
+                    end
+                
+                    subgraph "Controller Processing"
+                        M[Controller Method] --> N[Receives MultipartFile]
+                        N --> O[file.transferTo]
+                        O -->|Memory File| P[Direct Write to Target]
+                        O -->|Temp File| Q[Copy to Target Path]
+                    end
+                
+                    subgraph "Configuration"
+                        R[MultipartAutoConfiguration] --> S[Application Properties]
+                        S --> T[max-file-size: 1MB]
+                        S --> U[max-request-size: 10MB]
+                        S --> V[file-size-threshold: 0/10KB]
+                        S --> W[location: System Temp Dir]
+                        S --> X[max-threads: 200]
+                    end
+                
+                    C --> F
+                    F --> G
+                    L --> M
+                    P --> Y[Return Response]
+                    Q --> Y
+                    Y --> Z[JSON Response to Client]
+                    Z --> A
+                  </div>
+                  <p>Spring Boot uses the embeded Tomcat, who maintains a  Thread Pool, defaults 200 threads.
+                    Each recieved HTTP request will be assigned  to an available thread in the thread pool. When 
+                    the thread finish its request execution, it will soon get back to the thread pool and waiting for the next task.
+                  </p>
+                  <p>
+                    When I write the <code>fileUploading</code> API, and save the physical file in the local machine, 
+                    the execution of <code>file.transferTo(filePath.toFile())</code> and <code>fileVersionMapper.insertVersion</code> may take a longer time. As I tested,
+                    if I did't make any optimazing, each uploading file request would take about 32 ms, and after I splited 
+                    the code of saving physical file into asynchronous task, which means after the Tomcat thread executed the code of save meta file data, 
+                    it will directly return the saved file information, and the asynchronous Thread Pool  that we created will deal with the time-consuming tasks, leading
+                    to less Tomcat connect timesout and faster response to users. After optimazing, the main tread just takes about 4 ms <span class="highlight">(increasing performance 87%)</span>, 
+                    and the asynchronous thread takes 32 ms.
+                  </p>
+                  <div class="code-container">
+                    <div class="code-tabs">
+                        <button class="tab-button active" data-tab="fileService">FileService.java</button>
+                        <button class="tab-button" data-tab="asyncConfig">AsyncConfig.java</button>
+                    </div>
+            
+                    <div class="code-display">
+                        <pre id="fileService" class="code-content active"><code class="language-javascript">
+        CompletableFuture.runAsync(() -> {
+            long asyncStartTime = System.currentTimeMillis();
+            TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
+            transactionTemplate.execute(status -> {
+                try {
+                    Files.createDirectories(directoryPath); 
+                    file.transferTo(filePath.toFile());     
+                    
+                    FileVersion version = new FileVersion();
+                    version.setFileId(newFile.getId());
+                    version.setVersionNumber(versionNumber);
+                    version.setStoragePath(filePath.toString());
+                    version.setSize(file.getSize());
+                    version.setCreatedBy(ownerId);
+                    fileVersionMapper.insertVersion(version);
+
+                    FilePermission permission = new FilePermission();
+                    permission.setFileId(newFile.getId());
+                    permission.setPermission(PermissionType.ADMIN);
+                    permission.setCreatedBy(ownerId);
+                    permission.setCreatedAt(Instant.now());
+                    permission.setUserId(ownerId);
+                    permission.setFolderId(folderId);
+
+                    FilePermission existingPermission = filePermissionMapper.findByFileIdAndUserId(newFile.getId(), ownerId);
+                    if (existingPermission==null) {
+                        filePermissionMapper.insert(permission);
+                    } else {
+                        existingPermission.setPermission(PermissionType.ADMIN);
+                        filePermissionMapper.update(existingPermission);
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                return null;
+            });
+
+            long asyncEndTime = System.currentTimeMillis();
+            System.out.println("Async Task Time: " + (asyncEndTime - asyncStartTime) + " ms");
+        }, taskExecutor);
+                        </code></pre>
+            
+                        <pre id="asyncConfig" class="code-content"><code class="language-javascript">
+        @Configuration
+        public class AsyncConfig {
+        
+            @Bean
+            public ThreadPoolTaskExecutor taskExecutor() {
+                ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+                executor.setCorePoolSize(5);
+                executor.setMaxPoolSize(20);
+                executor.setQueueCapacity(100);
+                executor.setThreadNamePrefix("LocalUpload-"); 
+                executor.initialize();
+                
+                executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+                return executor;
+            }
+        }
+                        </code></pre>
+                        
+
+                    </div>
+                    
+                    <div class="code-toolbar">
+                        <button class="copy-button" id="copyButton">
+                            copy
+                            <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                        </button>
+                    </div>
+                  </div>
+                  <p>In our AsyncConfig file, we create a new ThreadPoolTaskExecutor, it maintains 5 core threads. When a large number of concurrent uploads occur, the five core threads
+                    will deal with the requests.
+                    More upload requests arrive, new tasks are placed in the queue (up to 100).
+                    When the queue is full, the thread pool will create new threads (up to 20 maximum).
+                    If 20 threads and 100 queues are full, the next task will trigger the rejection policy. 
+                  </p>
+                  <p>And I choose <code>CallerRunsPolicy</code>. Let the Tomcat thread execute tasks when rejected (downgrade to synchronous execution).</p>
                 </article>
           
                 <nav class="blog-pagination" aria-label="Pagination">
@@ -892,6 +1053,12 @@
                     .catch(err => {
                         console.error('can\'t copy it: ', err);
                     });
+            });
+        </script>
+        <script>
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: 'default'
             });
         </script>
     

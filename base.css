@@ -271,3 +271,26 @@ div {
     color: rgba(255, 255, 255, 1); 
     border-bottom-color: white; 
 }
+code {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    border-radius: 3px;
+    font-size: 0.9em;
+    text-shadow: none;
+    color: #D4B06A; 
+    font-weight: normal;
+    background-color: rgba(212, 176, 106, 0.1); /* 微弱的高亮背景 */
+    padding: 0 3px;
+    border-radius: 2px;
+  }
+
+
+
+  .highlight {
+    background-color: #FFD91A; /* 亮黄色背景 */
+    color: #000; /* 黑色文字 */
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: smaller;
+}
+
+
