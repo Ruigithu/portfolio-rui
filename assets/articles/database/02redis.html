@@ -22,6 +22,25 @@
             margin: 30px 0;
             background-color:#212529 ;
         }
+        .key-term {
+          margin-bottom: 10px;
+        }
+        .key-terms {
+          text-align: left;
+          background-color: #f4f4f4;
+          padding: 15px;
+          border-radius: 5px;
+          margin: 20px 0;
+          color: #212529;
+      }
+        .term {
+          font-weight: bold;
+          color: #c0392b;
+      }
+      img{
+        width: 60vw;
+      }
+
     </style>
     </head>
     <body class="d-flex text-center text-bg-dark" >
@@ -105,15 +124,421 @@
                         </li>
                       </ul></p>
                   </div>
-                  <p>: </p>
+
+                  <div>
+                    <h4 class="subtitle-align">Write-Through/Write-Back Consistency</h4>
+                    <p><strong>Defination:</strong> when update a data record that simultaneously in the database and int the Redis, how to avoid making the data dirty.</p>
+                    <img src="../../images/dirtydata01.jpeg" style="width:60vw">
+                  <div>&nbsp;</div>
+                    <img src="../../images/dirtydata02.jpeg" style="width:60vw">
+                    <p><strong>Solutions:</strong> 
+                      <ul>
+                        <li><strong>Delayed Double Deletion Strategy:</strong>
+                        <ul>
+                          <li>Delete the cache immediately after updating the database.</li>
+                          <li>Wait for a short delay (e.g., 500ms to 1s).</li>
+                          <li>Delete the cache again to ensure consistency.</li>
+                        </ul>
+                        <li>use <em>RabbitMQ</em> :<br>
+                          <img src="../../images/MQ-write-read.jpeg" style="width:60vw">
+                        
+                        </li>
+                      </ul></p>
+                  </div>
+
+                  <div>
+                    <h4 class="subtitle-align">Data Persistence</h4>
+                    <p><strong>Defination:</strong> By default, Redis stores all data in memory, which makes it extremely fast — but also means it is not persistent unless you configure it to be.
+
+                      🔥 When Redis might lose data:
+                      System Crash or Power Failure
+                      Since Redis keeps data in RAM, if the server crashes or there’s a power outage, all in-memory data is lost unless it has been saved to disk.</p>
+                    <p><strong>Solutions:</strong> 
+                      <ul>
+                        <li><strong>RDB (Redis Database Snapshot)</strong>:write all the data in Redis to the disk, when the Redis restart,
+                          it can quicly read the snapshot from the disk. Good for backups and faster restarts, but may lose data written after the last snapshot.<br>
+                        <img src="../../images/RDB.jpeg" style="width:60vw">
+                        </li>
+                        <li>use <em>AOF (Append Only File)</em> :<br>
+                        <p>Logs every write operation in sequence. 
+                          Can recover data more accurately, but the file grows larger and recovery is slower.</p>
+                          <div class="example">
+                            <div class="example-box">
+                                <div class="code-block">
+                                    set num 123<br>
+                                    set name jack<br>
+                                    set num 666
+                                </div>
+                            </div>
+                            <div class="arrow">➡️</div>
+                            <div class="example-box">
+                                <div class="code-block">
+                                    mset name jack num 666
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                        <h5>AOF Configuration</h5>
+                        <p>AOF is disabled by default and requires configuration changes in redis.conf:</p>
+                        
+                        <div class="code-block">
+                            # Enable AOF functionality (default is "no")<br>
+                            appendonly yes<br>
+                            <br>
+                            # Set the AOF filename<br>
+                            appendfilename "appendonly.aof"
+                        </div>
+                        
+                        <h5>Command Synchronization Frequency Options</h5>
+                        <p>Redis provides three options for how often it syncs commands to the AOF file:</p>
+                        
+                        <div class="code-block">
+                            # Write and sync after each command<br>
+                            appendfsync always<br>
+                            <br>
+                            # Write after each command, sync once per second (recommended)<br>
+                            appendfsync everysec<br>
+                            <br>
+                            # Let the operating system handle sync timing<br>
+                            appendfsync no
+                        </div>
+                        
+                        <table>
+                            <tr>
+                                <th>Configuration</th>
+                                <th>Sync Mechanism</th>
+                                <th>Advantages</th>
+                                <th>Disadvantages</th>
+                            </tr>
+                            <tr>
+                                <td>always</td>
+                                <td>Synchronize after every command</td>
+                                <td>Highest data safety, minimal data loss risk</td>
+                                <td>Significant performance impact</td>
+                            </tr>
+                            <tr>
+                                <td>everysec</td>
+                                <td>Synchronize once per second</td>
+                                <td>Balanced performance</td>
+                                <td>Might lose up to 1 second of data</td>
+                            </tr>
+                            <tr>
+                                <td>no</td>
+                                <td>Operating system controlled</td>
+                                <td>Best performance</td>
+                                <td>Higher risk of data loss, unreliable durability</td>
+                            </tr>
+                        </table>
+                        
+                        <h5>Automatic Rewriting</h5>
+                        <p>Redis can automatically rewrite the AOF file when it grows too large:</p>
+                        
+                        <div class="code-block" >
+                            # Trigger rewrite when AOF file grows by 100%<br>
+                            auto-aof-rewrite-percentage 100<br>
+                            <br>
+                            # Minimum size before auto-rewrite is triggered<br>
+                            auto-aof-rewrite-min-size 64mb
+                        </div>
+                        </li>
+                      </ul></p>
+                  </div>
                   
-                  <p>Write-Through/Write-Back Consistency: when update a data record that simultaneously in the database and int the Redis, how to avoid making the data dirty.
-                    There are two ways, one is to use distributed lock with the features of high consistency and low performnce.
-                    The another is RabbitMQ, allowing delay in a short time.
-                  </p>
-                  <p>Data Persistence: there are two ways to persist the data. One is using RDB(redis database backup), means write all the data in Redis to the disk, when the Redis restart,
-                    it can quicly read the snapshot from the disk.The another is AOF, means store the command line of writing data,like log. The latter is more data-compeleted
-                  </p>
+                  <div>
+                      <h3 class="subtitle-align">Redis Memory Eviction Strategies</h3>
+                      <p>When Redis runs out of memory, it uses eviction policies to remove existing data when new keys are added. This document explains the different eviction strategies available in Redis and provides recommendations for their use.</p>
+                      
+                      <div class="code-block" style="text-align: left;">
+                          # The default eviction policy<br>
+                          maxmemory-policy noeviction
+                      </div>
+                      
+                      <h5 class="subtitle-align">Available Eviction Policies</h5>
+                      
+                      <table>
+                          <tr>
+                              <th>Policy</th>
+                              <th>Target Keys</th>
+                              <th>Algorithm</th>
+                              <th>Description</th>
+                          </tr>
+                          <tr>
+                              <td><strong>noeviction</strong></td>
+                              <td>None</td>
+                              <td>N/A</td>
+                              <td>Don't evict any keys, but return an error when memory is full and new data cannot be added. This is the default policy.</td>
+                          </tr>
+                          <tr>
+                              <td><strong>volatile-ttl</strong></td>
+                              <td>Keys with TTL</td>
+                              <td>TTL-based</td>
+                              <td>Evict keys with TTL settings, prioritizing keys with shorter TTL values.</td>
+                          </tr>
+                          <tr>
+                              <td><strong>allkeys-random</strong></td>
+                              <td>All keys</td>
+                              <td>Random</td>
+                              <td>Randomly select keys from the entire keyspace for eviction.</td>
+                          </tr>
+                          <tr>
+                              <td><strong>volatile-random</strong></td>
+                              <td>Keys with TTL</td>
+                              <td>Random</td>
+                              <td>Randomly select keys with TTL settings for eviction.</td>
+                          </tr>
+                          <tr>
+                              <td><strong>allkeys-lru</strong></td>
+                              <td>All keys</td>
+                              <td>LRU</td>
+                              <td>Evict least recently used keys from the entire keyspace.<br><br><strong>LRU (Least Recently Used)</strong>: Prioritizes eviction of keys that haven't been accessed recently. The more recently a key was accessed, the less likely it is to be evicted.</td>
+                          </tr>
+                          <tr>
+                              <td><strong>volatile-lru</strong></td>
+                              <td>Keys with TTL</td>
+                              <td>LRU</td>
+                              <td>Evict least recently used keys, but only among keys with TTL settings.</td>
+                          </tr>
+                          <tr>
+                              <td><strong>allkeys-lfu</strong></td>
+                              <td>All keys</td>
+                              <td>LFU</td>
+                              <td>Evict least frequently used keys from the entire keyspace.<br><br><strong>LFU (Least Frequently Used)</strong>: Counts the access frequency of each key. Keys with lower access frequency are more likely to be evicted.</td>
+                          </tr>
+                          <tr>
+                              <td><strong>volatile-lfu</strong></td>
+                              <td>Keys with TTL</td>
+                              <td>LFU</td>
+                              <td>Evict least frequently used keys, but only among keys with TTL settings.</td>
+                          </tr>
+                      </table>
+                      <div class="recommendation">
+                        <ol>
+                            <li><strong>Prefer allkeys-lru strategy</strong> to fully utilize the advantages of the LRU algorithm, keeping the most recently accessed data in memory. Recommended when your application has clearly defined hot/cold data patterns.</li>
+                            <li><strong>Use allkeys-random</strong> when data access patterns don't vary much and there's no obvious hot/cold data division.</li>
+                            <li><strong>Consider volatile-lru strategy</strong> when some data needs persistence. Keys without TTL settings will never be evicted, while others will be managed by LRU.</li>
+                            <li><strong>For data with high access frequency in short time periods</strong>, consider using allkeys-lfu or volatile-lfu strategies.</li>
+                        </ol>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 class="subtitle-align">Expiration Policy</h4>
+                    <h5 class="subtitle-align">1. Lazy Eviction</h5>
+                    <p>Redis doesn't actively monitor key expiration. Instead, it checks if a key has expired when it's accessed, and if so, removes it; otherwise, it returns the key.</p>
+            
+                    
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h5>Advantages</h5>
+                            <ul>
+                                <li>CPU-friendly: only performs expiration checks when accessing a key</li>
+                                <li>No wasted time checking rarely used keys</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h5>Disadvantages</h5>
+                            <ul>
+                                <li>Not memory-efficient</li>
+                                <li>Expired but unused keys will remain in memory indefinitely, never releasing memory</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h5 class="subtitle-align">2. Periodic Eviction</h5>
+                    <p>At regular intervals, Redis examines a sample of keys, identifies and removes those that have expired (taking a random sample of keys from the database and checking for expired keys within that sample).</p>
+                    
+                    <p>Two periodic cleaning modes:</p>
+                    <ul>
+                        <li><strong>SLOW mode</strong>: Time-based task with default frequency of 10Hz. Each iteration takes no more than 25ms. The frequency can be adjusted using the "hz" option in redis.conf.</li>
+                        <li><strong>FAST mode</strong>: Variable frequency, but intervals are not less than 2ms. Each cycle takes no more than 1ms.</li>
+                    </ul>
+                    
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h5>Advantages</h5>
+                            <ul>
+                                <li>Can limit the duration and frequency of cleanup operations to reduce CPU impact</li>
+                                <li>Effectively releases memory used by expired keys</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h5>Disadvantages</h5>
+                            <ul>
+                                <li>Difficult to precisely control the timing and frequency of cleanup operations</li>
+                            </ul>
+                        </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 class="subtitle-align">Cluster</h4>
+                    <div class="subtitle-align"><strong>Why</strong>
+                        <ul>
+                          <li><strong>Memory limitation:</strong>
+                            A single Redis instance can’t hold massive datasets — Redis Cluster splits data across nodes.
+                          </li> 
+                          <li> 
+                            <strong>High availability:</strong>
+                            If one node fails, replicas take over automatically — no single point of failure.
+                          </li>
+                          <li>  
+                            <strong>Scalability:</strong>
+                            Redis Cluster allows you to handle more concurrent requests by distributing the load.
+                          </li>
+                          <li>  
+                            <strong>Automatic sharding:</strong>
+                            Redis Cluster manages data partitioning and rebalancing across nodes automatically.</li>
+                          </li>
+                          </ul>
+                        </div>
+                    <div>
+                      <div class="section">
+                        <h5 class="subtitle-align">Key Terminology</h5>
+                        <div class="key-terms">
+                            <div class="key-term">
+                                <span class="term">Replication ID:</span> A unique identifier for a dataset. Each master has a unique replid, and slaves inherit the master's replid.
+                            </div>
+                            <div class="key-term">
+                                <span class="term">offset:</span> Position indicator showing how far the data in repl_baklog has grown. When a slave completes synchronization, it records the previous synchronization offset. If the slave's offset is smaller than the master's offset, it means the slave data is behind the master and needs to be updated.
+                            </div>
+                            <div class="key-term">
+                                <span class="term">repl_baklog:</span> A log maintained by the master that records all write commands.
+                            </div>
+                            <div class="key-term">
+                                <span class="term">RDB:</span> Redis Database file, used for data persistence and replication.
+                            </div>
+                        </div>
+                      </div>
+                      <div>
+                        <figure>
+                          <img src="../../images/cluster-whole.jpeg" alt="Descriptive text">
+                          <figcaption>Full Synchronization Process</figcaption>
+                        </figure>
+                        <figure>
+                          <img src="../../images/cluster-increment.jpeg" alt="Descriptive text">
+                          <figcaption>Incremental Synchronization Process (Slave restart or periodic data changes):</figcaption>
+                        </figure>
+                        
+                      </div>
+                      <div class="section">
+                        <h4 class="subtitle-align">Service Status Monitoring</h4>
+                        <p>Sentinel monitors service status based on heartbeat mechanism, sending ping commands to each instance every second:</p>
+                        <ul>
+                            <li><strong>Subjective down:</strong> If a sentinel node discovers an instance doesn't respond within the specified time, it considers that instance to be subjectively down.</li>
+                            <li><strong>Objective down:</strong> If more than the specified number (quorum) of sentinels believe an instance is subjectively down, then that instance is considered to be objectively down. The ideal quorum value should exceed half of the total number of Sentinel instances.</li>
+                        </ul>
+                        
+                        <h5 class="subtitle-align">Failover Selection Rules</h5>
+                        <figure>
+                          <img src="../../images/sentinel.jpeg" alt="Descriptive text">
+                          <figcaption>Sentinel Mode</figcaption>
+                        </figure>
+                        <ul>
+                            <li>First, evaluate the disconnection time from the master node. If it exceeds the specified value, that slave node should be selected.</li>
+                            <li>Then, evaluate the slave-priority value of the slave node. The lower the value, the higher the priority.</li>
+                            <li>If slave-priority values are the same, evaluate the offset value of the slave node. The larger the value, the higher the priority.</li>
+                            <li>Finally, evaluate the run ID of the slave node. The smaller the value, the higher the priority.</li>
+                        </ul>
+                    </div>
+                    <div class="section">
+                      <h4 class="subtitle-align">Redis Split-Brain Problem</h4>
+                      <div class="problem">
+                          <p><strong>Split-brain</strong> is a critical issue that can occur in Redis cluster deployments:</p>
+                          <ul>
+                              <li>It happens when master and slave nodes end up in different network partitions</li>
+                              <li>This network division prevents Sentinel nodes from detecting the original master node</li>
+                              <li>The election process automatically promotes a slave node to become a new master</li>
+                              <li>The result is two concurrent master nodes operating independently</li>
+                              <li>Clients may write data to both masters, causing data inconsistency across the cluster</li>
+                              <li>When the network eventually recovers, the Sentinel will demote the original master to slave status</li>
+                              <li>The synchronization process will overwrite data on the demoted master with data from the new master</li>
+                              <li>This leads to permanent data loss for any writes that occurred during the split-brain condition</li>
+                          </ul>
+                      </div>
+                      
+                      <div class="solution">
+                          <h4 class="subtitle-align">Solution to Split-Brain</h4>
+                          <p>The split-brain problem can be mitigated by modifying Redis configuration:</p>
+                          <ul>
+                              <li><strong>Set minimum slave requirements:</strong> Configure a minimum number of connected slave nodes required for a master to accept writes</li>
+                              <li><strong>Reduce synchronization timeout:</strong> Shorten the master-slave data synchronization timeout period</li>
+                              <li>These configurations prevent data writing when minimum requirements aren't met</li>
+                              <li>While this may temporarily reduce availability, it helps avoid significant data loss scenarios</li>
+                          </ul>
+                      </div>
+                  </div>
+                  
+                  <div class="section">
+                      <h4 class="subtitle-align">Redis Sharding Cluster Overview</h4>
+                      <div>
+                          <h5 class="subtitle-align">Purpose of Redis Sharding Clusters</h5>
+                          <ul>
+                              <li>The cluster contains multiple master nodes, with each master storing different data segments</li>
+                              <li>Each master can have multiple slave nodes for redundancy and read scaling</li>
+                              <li>Health status between masters is continuously monitored through ping mechanisms</li>
+                              <li>Client requests can be directed to any cluster node, and will be automatically redirected to the correct node that holds the requested data</li>
+                          </ul>
+                      </div>
+                      
+                      <div >
+                          <h4 class="subtitle-align">How Redis Sharding Cluster Stores and Retrieves Data</h4>
+                          <ul>
+                              <li>Redis sharding cluster uses the concept of hash slots for data distribution</li>
+                              <li>A Redis cluster defines exactly 16384 hash slots</li>
+                              <li>These 16384 slots are distributed among different Redis instances</li>
+                              <li>For data storage and retrieval, Redis calculates a hash value based on the key's effective part:
+                                  <ul>
+                                      <li>If the key contains a hash tag (content between <code>{}</code> symbols), the hash tag is used as the effective part</li>
+                                      <li>If there's no hash tag, the entire key is used as the effective part</li>
+                                  </ul>
+                              </li>
+                              <li>The remainder after dividing the hash value by 16384 determines which slot (and therefore which node) will store the data</li>
+                              <li>This consistent hashing approach allows the cluster to scale horizontally while maintaining efficient data access</li>
+                          </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 class="subtitle-align">Distributed Lock</h4>
+                    <p>A distributed lock is used to ensure mutual exclusion when multiple processes or services try to access shared resources (like inventory, orders, etc.) in a distributed system.</p>
+                    <figure>
+                      <img src="../../images/distributed-lock.jpeg" alt="Descriptive text">
+                      <figcaption>Distributed Lock</figcaption>
+                    </figure>
+                    <p><code>SET lock_key lock_value NX EX 10
+                    </code></p>
+                    <figure>
+                      <img src="../../images/setnx.jpeg" alt="Descriptive text">
+                      <figcaption>Setnx</figcaption>
+                    </figure>
+                    <figure>
+                      <img src="../../images/redisson.jpeg" alt="Descriptive text">
+                      <figcaption>Redisson</figcaption>
+                    </figure>
+                    <p>Reentrant lock support: allows the same thread to acquire the same lock multiple times</p>
+                  </div>
+
+                  <div>
+                    <h4 class="subtitle-align">Single Thread but Fast--IO Multiplexing</h4>
+                    <p>Redis uses cache to store and retrieve data, which is very fast, the only thing that will get in its way is the network. </p>
+                    <p>I/O multiplexing refers to the technique of using a single thread to monitor multiple I/O events (such as network connections) simultaneously, without the need to create a dedicated thread for each connection. This allows Redis to handle thousands of client connections with minimal system resources.</p>
+                    <ul >
+                      Redis's I/O multiplexing achieves the following:
+                      <li><strong>Single-threaded monitoring of multiple sockets:</strong>  Redis primarily uses a single thread to listen for events on multiple client sockets via system calls like select, poll, epoll (Linux), and kqueue (BSD/macOS).
+                      </li><br>
+                      <li><strong>Event-driven architecture:</strong> When data is ready to be read, written, or when a new connection arrives, the operating system notifies Redis, which then handles the corresponding event—rather than continuously polling each connection.
+                      </li><br>
+                      <li><strong>Non-blocking I/O:</strong> Redis uses non-blocking sockets, which means that if an operation cannot be completed immediately (e.g., no data is available to read), it will return immediately instead of blocking the thread. This allows Redis to continue handling other connections.
+                      </li><br>
+                      <li><strong>Event-based scheduling:</strong> When an event occurs (e.g., a client sends a command), Redis places the event into a queue and processes it one by one. This includes:
+                      </li>
+
+                    </ul>
+                  </div>
+
+
                 </article>
           
                 <nav class="blog-pagination" aria-label="Pagination">
