@@ -49,6 +49,8 @@
                   <p class="blog-post-meta" style="text-align: center;">April 4, 2025 by <a href="#">Rui Peng</a></p>
                   <p>This blog post shows what kind of strategy and data structure MySQL has used to search data as fast as posible.</p>
                   <hr>
+                  <h2>Redis Structure</h2>
+                  <img src="../../images/redis-structure.jpg" title="https://architecturenotes.co/p/redis" style="width:70vw">
                   <h2>Application Scenarios</h2>
                     <div class="mermaid">
                         graph LR  
@@ -66,9 +68,44 @@
                     </div>
                     
                   <h2>Caching</h2>
-                  <p>Cache Penetration: query the data does not exist</p>
-                  <p>Cache Breakdown: when the key expired, simultaneously many users query the corresponding data and make database breakdown. </p>
-                  <p>Cache Avalanche: many keys expire at the same time, lead to many times visitings to DB, making DB breakdown.</p>
+                  <div>
+                    <h4 class="subtitle-align">Cache Penetration</h4>
+                    <p><strong>Defination:</strong> query the data does not exist</p>
+                    <p><strong>Solutions:</strong> 
+                      <ul>
+                        <li>store null--> bigger consuming cache </li>
+                        <li>use <em>Bloom Filter</em>:<br>
+                        <img src="../../images/database02-cachingPenestrate03.png" style="width:70vw" />
+                        </li>
+                      </ul></p>
+                  </div>
+
+                  <div>
+                    <h4 class="subtitle-align">Cache Breakdown</h4>
+                    <p><strong>Defination:</strong> when the key expired, simultaneously many users query the corresponding data and make database breakdown.</p>
+                    <p><strong>Solutions:</strong> 
+                      <ul>
+                        <li><strong>Mutex Lock</strong>:When one thread want the expired data, then this thread will get the lock first, when it finds the data expired, it will try to query database and reset the expire time,
+                        during this time, the other thread who also wants to get the expired data but fails, and it will sleep for a while and try again later.</li>
+                        <li>use <em>Logic Expire</em> :<br>
+                        <p>When the thread asks for an expired data,the thread will firstly return the expired data and the start a new thread to query the database, reconstruct the cache and reset logic expire.</p>
+                        </li>
+                      </ul></p>
+                  </div>
+
+                  <div>
+                    <h4 class="subtitle-align">Cache Avalanche</h4>
+                    <p><strong>Defination:</strong> many keys expire at the same time, lead to many times visitings to DB, making DB breakdown.</p>
+                    <p><strong>Solutions:</strong> 
+                      <ul>
+                        <li><strong>Mutex Lock</strong>:When one thread want the expired data, then this thread will get the lock first, when it finds the data expired, it will try to query database and reset the expire time,
+                        during this time, the other thread who also wants to get the expired data but fails, and it will sleep for a while and try again later.</li>
+                        <li>use <em>Logic Expire</em> :<br>
+                        <p>When the thread asks for an expired data,the thread will firstly return the expired data and the start a new thread to query the database, reconstruct the cache and reset logic expire.</p>
+                        </li>
+                      </ul></p>
+                  </div>
+                  <p>: </p>
                   
                   <p>Write-Through/Write-Back Consistency: when update a data record that simultaneously in the database and int the Redis, how to avoid making the data dirty.
                     There are two ways, one is to use distributed lock with the features of high consistency and low performnce.
