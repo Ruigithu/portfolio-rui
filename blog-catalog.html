@@ -66,7 +66,7 @@
             <!-- 博客分类 -->
             <div class="blog-categories">
                 <!-- Database分类 -->
-                <div class="category-card fade-in delay-2" onclick="toggleCategory(this)">
+                <div class="category-card fade-in delay-2" onclick="toggleCategory(this,event)">
                     <div class="category-header">
                         <div style="display: flex; align-items: center; flex: 1;">
                             <div class="category-icon">
@@ -101,7 +101,7 @@
                 </div>
 
                 <!-- Backend分类 -->
-                <div class="category-card fade-in delay-3" onclick="toggleCategory(this)">
+                <div class="category-card fade-in delay-3" onclick="toggleCategory(this,event)">
                     <div class="category-header">
                         <div style="display: flex; align-items: center; flex: 1;">
                             <div class="category-icon">
@@ -136,7 +136,7 @@
                 </div>
 
                 <!-- Design Pattern分类 -->
-                <div class="category-card fade-in delay-4" onclick="toggleCategory(this)">
+                <div class="category-card fade-in delay-4" onclick="toggleCategory(this,event)">
                     <div class="category-header">
                         <div style="display: flex; align-items: center; flex: 1;">
                             <div class="category-icon">
@@ -176,6 +176,7 @@
     <script>
         // 页面交互脚本
         document.addEventListener('DOMContentLoaded', function() {
+            
             // 移动端菜单切换功能
             const mobileMenuToggle = document.getElementById('mobileMenuToggle');
             const mobileNav = document.getElementById('mobileNav');
@@ -217,24 +218,27 @@
 
         // 分类展开/折叠功能
         function toggleCategory(card) {
-            const content = card.querySelector('.category-content');
-            const isExpanded = card.classList.contains('expanded');
-
-            // 关闭其他已展开的卡片
-            document.querySelectorAll('.category-card.expanded').forEach(otherCard => {
-                if (otherCard !== card) {
-                    otherCard.classList.remove('expanded');
-                    otherCard.querySelector('.category-content').classList.remove('show');
+            // 强制关闭所有卡片
+            document.querySelectorAll('.category-card').forEach(allCard => {
+                allCard.classList.remove('expanded');
+                const allContent = allCard.querySelector('.category-content');
+                if (allContent) {
+                    allContent.classList.remove('show');
                 }
             });
-
-            // 切换当前卡片状态
-            if (isExpanded) {
-                card.classList.remove('expanded');
-                content.classList.remove('show');
-            } else {
+            
+            // 然后只展开当前点击的卡片
+            const wasExpanded = card.dataset.expanded === 'true';
+            
+            if (!wasExpanded) {
                 card.classList.add('expanded');
-                content.classList.add('show');
+                const content = card.querySelector('.category-content');
+                if (content) {
+                    content.classList.add('show');
+                }
+                card.dataset.expanded = 'true';
+            } else {
+                card.dataset.expanded = 'false';
             }
         }
     </script>
