@@ -3,62 +3,239 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./bootstrap-5.0.2-dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="./base.css">
+    <title>Blog - Rui Peng</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet"  href="./blog-catalog.css">
 </head>
-<body class="d-flex text-center text-bg-dark" >
-    <div class="cover-container d-flex w-100 p-3 mx-auto flex-column">
-        <header class="mb-auto">
-          <div>
-            <h3 class="float-md-start mb-0">Rui Peng</h3>
-            <nav class="nav nav-masthead justify-content-center float-md-end">
-              <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="./index.html">Home</a>
-              <a class="nav-link fw-bold py-1 px-0" href="./project-display.html">My Project</a>
-              <a class="nav-link fw-bold py-1 px-0" href="./blog-catalog.html">Blog</a>
-              <a class="nav-link fw-bold py-1 px-0" href="./about-me.html">About Me</a>
-            </nav>
-          </div>
-        </header>
-        <div class="blog-catalog">
-            <div class="dropdown">
-                <div class="dropdown-header" onclick="toggleDropdown(this)">Database</div>
-                <div class="dropdown-content">
-                    <a href="./assets/articles/database/01how-seach-for-data.html">1. How does MySQL search for data?</a>
-                    <a href="./assets/articles/database/02redis.html">2. Redis</a>
-                    <a href="#">3. #</a>
-                </div>
+<body>
+    <!-- 浮动装饰元素 -->
+    <div class="floating-elements">
+        <div class="floating-dot"></div>
+        <div class="floating-dot"></div>
+        <div class="floating-dot"></div>
+        <div class="floating-dot"></div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="./index.html" class="nav-brand">
+                <div class="brand-square"></div>
+                Rui Peng
+                <span style="color: #666; font-weight: 400; margin-left: 0.5rem;">/ SOFTWARE ENGINEER</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="./index.html">HOME</a></li>
+                <li><a href="./project-display.html">PROJECTS</a></li>
+                <li><a href="#" class="active">BLOG</a></li>
+                <li><a href="./about-me.html">ABOUT ME</a></li>
+            </ul>
+            
+            <!-- 移动端汉堡菜单按钮 -->
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
-        
-            <div class="dropdown">
-                <div class="dropdown-header" onclick="toggleDropdown(this)">backend</div>
-                <div class="dropdown-content">
-                    <p>• <a href="#">#</a></p>
-                    <p>• <a href="#">#</a></p>
-                    <p>• <a href="#">#</a></p>
+        </div>
+    </nav>
+
+    <!-- 移动端导航菜单 -->
+    <div class="mobile-nav" id="mobileNav">
+        <ul class="mobile-nav-links">
+            <li><a href="./index.html">HOME</a></li>
+            <li><a href="./project-display.html">PROJECTS</a></li>
+            <li><a href="#" class="active">BLOG</a></li>
+            <li><a href="./about-me.html">ABOUT ME</a></li>
+        </ul>
+    </div>
+
+    <!-- 主内容 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 页面头部 -->
+            <header class="page-header fade-in">
+                <h1 class="page-title">Blog</h1>
+                <p class="page-subtitle fade-in delay-1">
+                    Technical insights, development strategies, and lessons learned 
+                    during my software engineering journey. Organized by topic for 
+                    easy navigation and reference.
+                </p>
+            </header>
+
+            <!-- 博客分类 -->
+            <div class="blog-categories">
+                <!-- Database分类 -->
+                <div class="category-card fade-in delay-2" onclick="toggleCategory(this)">
+                    <div class="category-header">
+                        <div style="display: flex; align-items: center; flex: 1;">
+                            <div class="category-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="category-title-section">
+                                <h2 class="category-title">Database</h2>
+                                <p class="category-description">MySQL optimization, Redis caching, and data storage strategies</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="category-content">
+                        <div class="articles-list">
+                            <a href="./assets/articles/database/01how-seach-for-data.html" class="article-item">
+                                <span class="article-number">1</span>
+                                <span class="article-title">How does MySQL search for data?</span>
+                                <i class="fas fa-arrow-right article-arrow"></i>
+                            </a>
+                            <a href="./assets/articles/database/02redis.html" class="article-item">
+                                <span class="article-number">2</span>
+                                <span class="article-title">Redis: In-Memory Data Structure Store</span>
+                                <i class="fas fa-arrow-right article-arrow"></i>
+                            </a>
+                            <a href="#" class="article-item">
+                                <span class="article-number">3</span>
+                                <span class="article-title">Database Indexing Best Practices</span>
+                                <i class="fas fa-arrow-right article-arrow"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        
-            <div class="dropdown">
-                <div class="dropdown-header" onclick="toggleDropdown(this)">design pattern</div>
-                <div class="dropdown-content">
-                    <p>• <a href="#">#</a></p>
-                    <p>• <a href="#">#</a></p>
-                    <p>• <a href="#">#</a></p>
+
+                <!-- Backend分类 -->
+                <div class="category-card fade-in delay-3" onclick="toggleCategory(this)">
+                    <div class="category-header">
+                        <div style="display: flex; align-items: center; flex: 1;">
+                            <div class="category-icon">
+                                <i class="fas fa-server"></i>
+                            </div>
+                            <div class="category-title-section">
+                                <h2 class="category-title">Backend</h2>
+                                <p class="category-description">Server architecture, API design, and backend development patterns</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="category-content">
+                        <div class="articles-list">
+                            <a href="#" class="article-item">
+                                <span class="article-number">1</span>
+                                <span class="article-title">RESTful API Design Principles</span>
+                                <i class="fas fa-arrow-right article-arrow"></i>
+                            </a>
+                            <a href="#" class="article-item">
+                                <span class="article-number">2</span>
+                                <span class="article-title">Microservices vs Monolithic Architecture</span>
+                                <i class="fas fa-arrow-right article-arrow"></i>
+                            </a>
+                            <a href="#" class="article-item">
+                                <span class="article-number">3</span>
+                                <span class="article-title">Authentication and Authorization Strategies</span>
+                                <i class="fas fa-arrow-right article-arrow"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Design Pattern分类 -->
+                <div class="category-card fade-in delay-4" onclick="toggleCategory(this)">
+                    <div class="category-header">
+                        <div style="display: flex; align-items: center; flex: 1;">
+                            <div class="category-icon">
+                                <i class="fas fa-puzzle-piece"></i>
+                            </div>
+                            <div class="category-title-section">
+                                <h2 class="category-title">Design Patterns</h2>
+                                <p class="category-description">Software design patterns and architectural solutions</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="category-content">
+                        <div class="articles-list">
+                            <a href="#" class="article-item">
+                                <span class="article-number">1</span>
+                                <span class="article-title">Observer Pattern in JavaScript</span>
+                                <i class="fas fa-arrow-right article-arrow"></i>
+                            </a>
+                            <a href="#" class="article-item">
+                                <span class="article-number">2</span>
+                                <span class="article-title">Factory Pattern for Object Creation</span>
+                                <i class="fas fa-arrow-right article-arrow"></i>
+                            </a>
+                            <a href="#" class="article-item">
+                                <span class="article-number">3</span>
+                                <span class="article-title">MVC Architecture in Web Development</span>
+                                <i class="fas fa-arrow-right article-arrow"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    
+    </main>
+
     <script>
-        function toggleDropdown(header) {
+        // 页面交互脚本
+        document.addEventListener('DOMContentLoaded', function() {
+            // 移动端菜单切换功能
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mobileNav = document.getElementById('mobileNav');
 
-            const content = header.nextElementSibling;
-            content.classList.toggle('show');
+            mobileMenuToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                mobileNav.classList.toggle('active');
+            });
 
-            header.classList.toggle('active');
+            // 点击菜单项后关闭移动菜单
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-links a');
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileNav.classList.remove('active');
+                });
+            });
+
+            // 点击页面其他区域关闭菜单
+            document.addEventListener('click', function(e) {
+                if (!mobileMenuToggle.contains(e.target) && !mobileNav.contains(e.target)) {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileNav.classList.remove('active');
+                }
+            });
+
+            // 导航栏滚动效果
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                const navbar = document.querySelector('.navbar');
+                if (lastScrollY < window.scrollY && !mobileNav.classList.contains('active')) {
+                    navbar.style.transform = 'translateY(-100%)';
+                } else {
+                    navbar.style.transform = 'translateY(0)';
+                }
+                lastScrollY = window.scrollY;
+            });
+        });
+
+        // 分类展开/折叠功能
+        function toggleCategory(card) {
+            const content = card.querySelector('.category-content');
+            const isExpanded = card.classList.contains('expanded');
+
+            // 关闭其他已展开的卡片
+            document.querySelectorAll('.category-card.expanded').forEach(otherCard => {
+                if (otherCard !== card) {
+                    otherCard.classList.remove('expanded');
+                    otherCard.querySelector('.category-content').classList.remove('show');
+                }
+            });
+
+            // 切换当前卡片状态
+            if (isExpanded) {
+                card.classList.remove('expanded');
+                content.classList.remove('show');
+            } else {
+                card.classList.add('expanded');
+                content.classList.add('show');
+            }
         }
     </script>
 </body>

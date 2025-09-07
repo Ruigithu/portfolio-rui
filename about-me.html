@@ -1,82 +1,546 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./bootstrap-5.0.2-dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="./base.css">
-    <link rel="stylesheet" href="./project-intro-1.css">
-</head>
-<body class="d-flex text-center text-bg-dark" style="height: auto">
-    <div class="cover-container d-flex w-100 p-3 mx-auto flex-column">
-        <header class="mb-auto">
-          <div>
-            <h3 class="float-md-start mb-0">Rui Peng</h3>
-            <nav class="nav nav-masthead justify-content-center float-md-end">
-              <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="./index.html">Home</a>
-              <a class="nav-link fw-bold py-1 px-0" href="./project-display.html">My Project</a>
-              <a class="nav-link fw-bold py-1 px-0" href="./blog-catalog.html">Blog</a>
-              <a class="nav-link fw-bold py-1 px-0" href="./about-me.html">About Me</a>
-            </nav>
-          </div>
-        </header>
-        <div class="col-md-12 intro">
-            <h3 class="pb-4 mb-4 fst-italic border-bottom">
-              About Me
-            </h3>
-      
-            <article class="blog-post">
-              <h2 class="display-5 link-body-emphasis mb-1">Introduction</h2>
-              <p class="blog-post-meta" style="text-align: right;">April 3, 2025 by Rui Peng</p>
-      
-              <p>Hi, I’m Rui Peng! In this blog, I’d like to share a bit about myself. </p>
-              <hr>
-              <p>
-                Soon, I’ll graduate with a master’s in Human-Computer Interaction (HCI). Two years ago, as an ambitious undergraduate dreaming of a journalism career, I couldn't have imagined pursuing software development instead.  </p>
-              <p>
-                I left journalism because it felt like a cage—rules dictated every word, stifling my potential. 
-                I craved a path with room to grow, where I could test my limits and break free from constant pressure to conform. 
-                Back then, the relentless voices of tradition and expectation—telling me who to be, how to act—drained my energy. 
-                I needed an escape, not just from the job, but from that mindset. </p>
-              <p>
-                Programming started as my way out, a tool to redefine my future. 
-                Unlike writing articles, coding was alien. 
-                With no computer science background or mentor, I doubted myself often. 
-                I’d heard programmers groan about debugging, but spending a whole day configuring an environment? 
-                That hit differently. 
-                Still, my drive to carve my own path pushed me past the fear. 
-                I moved from <code>System.out.println("Hello World!");</code> to building two web applications from scratch.
-              </p>
-              <p>Just 20 days ago, I wasn’t convinced I could be a software engineer. 
-                Technical interviews and complex problems felt daunting, exposing gaps I feared I couldn’t bridge. 
-                But I paused, refocused, and leaned into what I’d already learned. 
-                Optimizing my applications’ performance showed me I might just pull this off.   
-              </p>
-              <p>
-                I’m a mix of dreamer and doer. 
-                I want skills that unlock new possibilities, rooted in what I love and believe in. 
-                Passion fuels persistence, I’ve learned. 
-                At first, coding didn’t feel like mine—I was a journalist, wired for stories, not logic. 
-                Effort, not instinct, got me here. Then, last week, a Jungian cognitive test surprised me: I’m driven by “Ti” (introverted thinking), thriving on analysis. 
-                Skeptical, I retook it twice—same result.
-              </p>
+    <title>About Me - Rui Peng</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-              <p>
-                Curious, I asked ChatGPT about it. 
-                It wasn’t shocked—my technical questions had already hinted at a developer’s mind. 
-                But looking back, my shift to coding wasn’t random; it’s the result of persistence, curiosity, and a hunger for something bigger. 
-                Now, I believe I can make it.
-              </p>
-    
-            </article>
-    
-      
-            <nav class="blog-pagination" aria-label="Pagination">
-              <a class="btn btn-outline-primary rounded-pill" href="#">Back To Top</a>
-            </nav>
-      
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f1eb;
+            color: #333;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* 导航栏样式 - 与其他页面一致 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(245, 241, 235, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-brand .brand-square {
+            width: 15px;
+            height: 15px;
+            background: #4285f4;
+            border-radius: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #666;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #4285f4;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #4285f4;
+        }
+
+        /* 主内容区域 */
+        .main-content {
+            margin-top: 100px;
+            min-height: 100vh;
+            padding: 3rem 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* 页面头部 */
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #333;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .page-title::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 35px;
+            background: #4285f4;
+            border-radius: 3px;
+        }
+
+        /* 文章内容 */
+        .article-container {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .article-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(66, 133, 244, 0.1);
+        }
+
+        .article-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .article-meta {
+            color: #666;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        .article-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .article-content p:first-child {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #4285f4;
+        }
+
+        .article-content hr {
+            margin: 2rem 0;
+            border: none;
+            height: 2px;
+            background: linear-gradient(135deg, #4285f4, rgba(66, 133, 244, 0.3));
+            border-radius: 1px;
+        }
+
+        .article-content code {
+            background: rgba(66, 133, 244, 0.1);
+            color: #4285f4;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+
+        /* 返回顶部按钮 */
+        .back-to-top {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .btn-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: #4285f4;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-top:hover {
+            background: #3367d6;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(66, 133, 244, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+
+        /* 浮动装饰元素 - 简化版 */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(66, 133, 244, 0.2);
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .floating-dot:nth-child(1) {
+            top: 25%;
+            right: 15%;
+            animation-delay: -3s;
+        }
+
+        .floating-dot:nth-child(2) {
+            top: 65%;
+            left: 10%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.2;
+            }
+            50% {
+                transform: translateY(-25px) rotate(180deg);
+                opacity: 0.6;
+            }
+        }
+
+        /* 动画效果 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .fade-in.delay-1 { animation-delay: 0.2s; }
+        .fade-in.delay-2 { animation-delay: 0.4s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 移动端汉堡菜单 */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .mobile-nav {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background: rgba(245, 241, 235, 0.98);
+            backdrop-filter: blur(15px);
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 999;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-nav.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .mobile-nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav-links a:hover,
+        .mobile-nav-links a.active {
+            color: #4285f4;
+            transform: translateX(10px);
+        }
+
+        .mobile-nav-links a:last-child {
+            border-bottom: none;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .nav-brand span {
+                display: none;
+            }
+
+            .main-content {
+                margin-top: 80px;
+                padding: 2rem 1rem;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .page-title::before {
+                display: none;
+            }
+
+            .article-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .article-content {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .article-container {
+                padding: 1.5rem 1rem;
+            }
+        }
+
+        /* 滚动平滑效果 */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- 浮动装饰元素 - 简化版 -->
+    <div class="floating-elements">
+        <div class="floating-dot"></div>
+        <div class="floating-dot"></div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="./index.html" class="nav-brand">
+                <div class="brand-square"></div>
+                Rui Peng
+                <span style="color: #666; font-weight: 400; margin-left: 0.5rem;">/ SOFTWARE ENGINEER</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="./index.html">HOME</a></li>
+                <li><a href="./project-display.html">PROJECTS</a></li>
+                <li><a href="./blog-catalog.html">BLOG</a></li>
+                <li><a href="#" class="active">ABOUT ME</a></li>
+            </ul>
+            
+            <!-- 移动端汉堡菜单按钮 -->
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-    
+    </nav>
+
+    <!-- 移动端导航菜单 -->
+    <div class="mobile-nav" id="mobileNav">
+        <ul class="mobile-nav-links">
+            <li><a href="./index.html">HOME</a></li>
+            <li><a href="./project-display.html">PROJECTS</a></li>
+            <li><a href="./blog-catalog.html">BLOG</a></li>
+            <li><a href="#" class="active">ABOUT ME</a></li>
+        </ul>
+    </div>
+
+    <!-- 主内容 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 页面头部 -->
+            <header class="page-header fade-in">
+                <h1 class="page-title">About Me</h1>
+            </header>
+
+            <!-- 文章内容 -->
+            <article class="article-container fade-in delay-1">
+                <div class="article-header">
+                    <h2 class="article-title">Introduction</h2>
+                    <p class="article-meta">April 3, 2025 by Rui Peng</p>
+                </div>
+
+                <div class="article-content">
+                    <p>Hi, I'm Rui Peng! In this blog, I'd like to share a bit about myself.</p>
+                    
+                    <hr>
+                    
+                    <p>Soon, I'll graduate with a master's in Human-Computer Interaction (HCI). Two years ago, as an ambitious undergraduate dreaming of a journalism career, I couldn't have imagined pursuing software development instead.</p>
+                    
+                    <p>I left journalism because it felt like a cage—rules dictated every word, stifling my potential. I craved a path with room to grow, where I could test my limits and break free from constant pressure to conform. Back then, the relentless voices of tradition and expectation—telling me who to be, how to act—drained my energy. I needed an escape, not just from the job, but from that mindset.</p>
+                    
+                    <p>Programming started as my way out, a tool to redefine my future. Unlike writing articles, coding was alien. With no computer science background or mentor, I doubted myself often. I'd heard programmers groan about debugging, but spending a whole day configuring an environment? That hit differently. Still, my drive to carve my own path pushed me past the fear. I moved from <code>System.out.println("Hello World!");</code> to building two web applications from scratch.</p>
+                    
+                    <p>Just 20 days ago, I wasn't convinced I could be a software engineer. Technical interviews and complex problems felt daunting, exposing gaps I feared I couldn't bridge. But I paused, refocused, and leaned into what I'd already learned. Optimizing my applications' performance showed me I might just pull this off.</p>
+                    
+                    <p>I'm a mix of dreamer and doer. I want skills that unlock new possibilities, rooted in what I love and believe in. Passion fuels persistence, I've learned. At first, coding didn't feel like mine—I was a journalist, wired for stories, not logic. Effort, not instinct, got me here. Then, last week, a Jungian cognitive test surprised me: I'm driven by "Ti" (introverted thinking), thriving on analysis. Skeptical, I retook it twice—same result.</p>
+                    
+                    <p>Curious, I asked ChatGPT about it. It wasn't shocked—my technical questions had already hinted at a developer's mind. But looking back, my shift to coding wasn't random; it's the result of persistence, curiosity, and a hunger for something bigger. Now, I believe I can make it.</p>
+                </div>
+            </article>
+
+            <!-- 返回顶部按钮 -->
+            <div class="back-to-top fade-in delay-2">
+                <a href="#" class="btn-top" onclick="scrollToTop()">
+                    <i class="fas fa-chevron-up"></i>
+                    Back to Top
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 页面交互脚本
+        document.addEventListener('DOMContentLoaded', function() {
+            // 移动端菜单切换功能
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mobileNav = document.getElementById('mobileNav');
+
+            mobileMenuToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                mobileNav.classList.toggle('active');
+            });
+
+            // 点击菜单项后关闭移动菜单
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-links a');
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileNav.classList.remove('active');
+                });
+            });
+
+            // 点击页面其他区域关闭菜单
+            document.addEventListener('click', function(e) {
+                if (!mobileMenuToggle.contains(e.target) && !mobileNav.contains(e.target)) {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileNav.classList.remove('active');
+                }
+            });
+
+            // 导航栏滚动效果
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                const navbar = document.querySelector('.navbar');
+                if (lastScrollY < window.scrollY && !mobileNav.classList.contains('active')) {
+                    navbar.style.transform = 'translateY(-100%)';
+                } else {
+                    navbar.style.transform = 'translateY(0)';
+                }
+                lastScrollY = window.scrollY;
+            });
+        });
+
+        // 返回顶部功能
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
 </body>
 </html>

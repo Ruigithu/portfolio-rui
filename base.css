@@ -278,7 +278,7 @@ code {
     text-shadow: none;
     color: #D4B06A; 
     font-weight: normal;
-    background-color: rgba(212, 176, 106, 0.1); /* 微弱的高亮背景 */
+    background-color: rgba(212, 176, 106, 0.1); /*微弱的高亮背景*/
     padding: 0 3px;
     border-radius: 2px;
   }

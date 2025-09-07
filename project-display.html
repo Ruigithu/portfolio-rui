@@ -4,58 +4,222 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./bootstrap-5.0.2-dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="./base.css">
+    <title>Projects - Rui Peng</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./project-display.css">
 </head>
-<body class="d-flex text-center text-bg-dark" >
-    <div class="cover-container d-flex w-100 p-3 mx-auto flex-column">
-        <header class="mb-auto">
-          <div>
-            <h3 class="float-md-start mb-0">Rui Peng</h3>
-            <nav class="nav nav-masthead justify-content-center float-md-end">
-              <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="./index.html">Home</a>
-              <a class="nav-link fw-bold py-1 px-0" href="./project-display.html">My Project</a>
-              <a class="nav-link fw-bold py-1 px-0" href="./blog-catalog.html">Blog</a>
-              <a class="nav-link fw-bold py-1 px-0" href="./about-me.html">About Me</a>
-            </nav>
-          </div>
-        </header>
-        
+<body>
+    <!-- 浮动装饰元素 -->
+    <div class="floating-elements">
+        <div class="floating-dot"></div>
+        <div class="floating-dot"></div>
+        <div class="floating-dot"></div>
+        <div class="floating-dot"></div>
+    </div>
 
-        <ul class="project-list">
-            <li>
-              <div class="card">
-                <div class="card-img-container">
-                  <img src="./assets/images/cloud-storage.png" class="card-img" alt="Cloud Storage Project">
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title">Cloud Storage</h5>
-                  <span class="card-subtitle">Monolithic web application</span>
-                  <div class="card-links">
-                    <a href="https://github.com/Ruigithu/cloud-storage.git" class="card-link github-link" target="_blank">GitHub</a>
-                    <a href="./project-intro-1.html" class="card-link intro-link">View Details</a>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="card">
-                <div class="card-img-container">
-                  <img src="./assets/images/e-comerce.png" class="card-img" alt="E-Commerce Project">
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title">E-Commerce</h5>
-                  <span class="card-subtitle">Microservices web application</span>
-                  <div class="card-links">
-                    <a href="https://github.com/Ruigithu/e-commerce.git" class="card-link github-link" target="_blank">GitHub</a>
-                    <a href="./project-intro-2.html" class="card-link intro-link">View Details</a>
-                  </div>
-                </div>
-              </div>
-            </li>
-          </ul>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="./index.html" class="nav-brand">
+                <div class="brand-square"></div>
+                Rui Peng
+                <span style="color: #666; font-weight: 400; margin-left: 0.5rem;">/ SOFTWARE ENGINEER</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="./index.html">HOME</a></li>
+                <li><a href="#" class="active">PROJECTS</a></li>
+                <li><a href="./blog-catalog.html">BLOG</a></li>
+                <li><a href="./about-me.html">ABOUT ME</a></li>
+            </ul>
+            
+            <!-- 移动端汉堡菜单按钮 -->
+            <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
 
-    
+    <!-- 移动端导航菜单 -->
+    <div class="mobile-nav" id="mobileNav">
+        <ul class="mobile-nav-links">
+            <li><a href="./index.html">HOME</a></li>
+            <li><a href="#" class="active">PROJECTS</a></li>
+            <li><a href="./blog-catalog.html">BLOG</a></li>
+            <li><a href="./about-me.html">ABOUT ME</a></li>
+        </ul>
+    </div>
+
+    <!-- 主内容 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 页面头部 -->
+            <header class="page-header fade-in">
+                <h1 class="page-title">Projects</h1>
+                <p class="page-subtitle fade-in delay-1">
+                    A collection of projects showcasing my journey in software development. 
+                    Each project represents learning new technologies, solving real problems, 
+                    and continuous growth as a developer.
+                </p>
+            </header>
+
+            <!-- 项目网格 -->
+            <div class="projects-grid">
+                <article class="project-card fade-in delay-2">
+                    <div class="project-image">
+                        <img src="./assets/images/cloud-storage.png" alt="Cloud Storage Project">
+                        <div class="project-overlay">
+                            <span class="project-tech-tag">Full Stack Development</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h2 class="project-title">Cloud Storage</h2>
+                        <span class="project-category">Monolithic Web Application</span>
+                        <p class="project-description">
+                            A comprehensive cloud storage solution built with modern web technologies. 
+                            Features secure file upload, storage management, user authentication, and 
+                            intuitive file organization capabilities.
+                        </p>
+                        <div class="project-links">
+                            <a href="https://github.com/Ruigithu/cloud-storage.git" class="project-link github-link" target="_blank">
+                                <i class="fab fa-github"></i>
+                                GitHub
+                            </a>
+                            <a href="./project-intro-1.html" class="project-link demo-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                View Details
+                            </a>
+                            <a href="https://d37fb7rfdqb3fd.cloudfront.net" target="_blank"  class="project-link demo-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                Try it
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card fade-in delay-3">
+                    <div class="project-image">
+                        <img src="./assets/images/e-comerce.png" alt="E-Commerce Project">
+                        <div class="project-overlay">
+                            <span class="project-tech-tag">Microservices Architecture</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h2 class="project-title">E-Commerce Platform</h2>
+                        <span class="project-category">Microservices Web Application</span>
+                        <p class="project-description">
+                            A scalable e-commerce platform built with microservices architecture. 
+                            Includes product catalog, shopping cart, payment processing, order management, 
+                            and admin dashboard functionalities.
+                        </p>
+                        <div class="project-links">
+                            <a href="https://github.com/Ruigithu/e-commerce.git" class="project-link github-link" target="_blank">
+                                <i class="fab fa-github"></i>
+                                GitHub
+                            </a>
+                            <a href="./project-intro-2.html" class="project-link demo-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                View Details
+                            </a>
+                            <a href="https://e-commerce-rui667.netlify.app" class="project-link demo-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                Try it
+                            </a>
+                        </div>
+                    </div>
+
+                </article>
+
+                <article class="project-card fade-in delay-3">
+                    <div class="project-image">
+                        <img src="./assets/images/personal-financial-planner.png" alt="E-Commerce Project">
+                        <div class="project-overlay">
+                            <span class="project-tech-tag">Microservices Architecture</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h2 class="project-title">Personal Financial Planner Platform</h2>
+                        <span class="project-category">Monolithic Web Application</span>
+                        <p class="project-description">
+                            An AI-driven web application, aiming to generate personal financial plan according to users'profile. 
+                            Includes Gemini API, Google Calendar API, and offers functions of consulting specilists.
+                        </p>
+                        <div class="project-links">
+                            <a href="https://github.com/Ruigithu/personal-financial-planner.git" class="project-link github-link" target="_blank">
+                                <i class="fab fa-github"></i>
+                                GitHub
+                            </a>
+                            <a href="./project-intro-2.html" class="project-link demo-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                View Details
+                            </a>
+                            <a href="https://personal-financial-planner.netlify.app/" class="project-link demo-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                Try it
+                            </a>
+                        </div>
+                    </div>
+
+                </article>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 页面交互脚本
+        document.addEventListener('DOMContentLoaded', function() {
+            // 移动端菜单切换功能
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mobileNav = document.getElementById('mobileNav');
+
+            mobileMenuToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                mobileNav.classList.toggle('active');
+            });
+
+            // 点击菜单项后关闭移动菜单
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-links a');
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileNav.classList.remove('active');
+                });
+            });
+
+            // 点击页面其他区域关闭菜单
+            document.addEventListener('click', function(e) {
+                if (!mobileMenuToggle.contains(e.target) && !mobileNav.contains(e.target)) {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileNav.classList.remove('active');
+                }
+            });
+
+            // 导航栏滚动效果（但移动端菜单打开时不隐藏）
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                const navbar = document.querySelector('.navbar');
+                if (lastScrollY < window.scrollY && !mobileNav.classList.contains('active')) {
+                    navbar.style.transform = 'translateY(-100%)';
+                } else {
+                    navbar.style.transform = 'translateY(0)';
+                }
+                lastScrollY = window.scrollY;
+            });
+
+            // 项目卡片悬停效果增强
+            const projectCards = document.querySelectorAll('.project-card');
+            projectCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.zIndex = '10';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.zIndex = '1';
+                });
+            });
+        });
+    </script>
 </body>
 </html>

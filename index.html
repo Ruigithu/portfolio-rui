@@ -3,50 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rui Peng</title>
-    <link rel="stylesheet" href="./bootstrap-5.0.2-dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="./base.css">
+    <title>Rui Peng - Software Engineer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./index.css"/> 
     
 </head>
-<body class="d-flex text-center text-bg-dark" >
-    <div class="cover-container d-flex w-100 p-3 mx-auto flex-column">
-        <header class="mb-auto">
-          <div>
-            <h3 class="float-md-start mb-0">Rui Peng</h3>
-            <nav class="nav nav-masthead justify-content-center float-md-end">
-              <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="#">Home</a>
-              <a class="nav-link fw-bold py-1 px-0" href="./project-display.html">My Project</a>
-              <a class="nav-link fw-bold py-1 px-0" href="./blog-catalog.html">Blog</a>
-              <a class="nav-link fw-bold py-1 px-0" href="./about-me.html">About Me</a>
-            </nav>
-          </div>
-        </header>
-      
-        <main class="px-3">
-          <div class="profile-pic">
-            <img src="./assets/images/9ca4eb754b1645390443a86f8469580(1).jpg">
-          </div>
-          <p class="lead intro soft-edge" style="text-align: left; ">
-            Welcome to Rui Peng's website, a space I maintain to document my journey in software development and support my job search. 
-            The site is divided into three sections: 
-            <code>'My Projects'</code> showcases the relatively complete web applications I've built while learning to code; 
-            <code>'Blog'</code> features development and design strategies I’ve explored but haven’t yet applied to my projects; 
-            and <code>'About Me'</code> offers a glimpse into my personal story. 
-            Much of the content is still being continuously updated and refined, including fixes for grammar and code errors.
-            The <code>'Hire Her</code>' button below is purely decorative, added for balance—feel free to click it anyway!
-          </p>
-          <p class="lead">
-            <a href="#" class="btn btn-lg btn-light fw-bold border-white bg-white" >Hire Her</a>
-          </p>
-        </main>
-      
-        <footer class="mt-auto text-white-50">
-          <span><strong>Email:</strong> rui.peng.contact@gmail.com</span>
-          <span>&nbsp;</span><span>&nbsp;</span> <span>&nbsp;</span>
-          <span><strong>Phone Number:</strong> +353 852250726</span>
-        </footer>
-      </div>
+<body>
+    <div class="floating-elements">
+        <div class="floating-dot"></div>
+        <div class="floating-dot"></div>
+        <div class="floating-dot"></div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+    <div class="nav-container">
+        <a href="#" class="nav-brand">
+            <div class="brand-square"></div>
+            Rui Peng
+            <span style="color: #666; font-weight: 400; margin-left: 0.5rem;">/ SOFTWARE ENGINEER</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#" class="active">HOME</a></li>
+            <li><a href="./project-display.html">PROJECTS</a></li>
+            <li><a href="./project-display.html">BLOG</a></li>
+            <li><a href="./about-me">ABOUT ME</a></li>
+        </ul>
+        
+        <!-- 新增：移动端汉堡菜单按钮 -->
+        <div class="mobile-menu-toggle" id="mobileMenuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
+
+        <!-- 新增：移动端导航菜单 -->
+        <div class="mobile-nav" id="mobileNav">
+            <ul class="mobile-nav-links">
+                <li><a href="#" class="active">HOME</a></li>
+                <li><a href="./project-display.html">PROJECTS</a></li>
+                <li><a href="./project-display.html">BLOG</a></li>
+                <li><a href="./about-me">ABOUT ME</a></li>
+            </ul>
+        </div>
+
+    <!-- 主内容 -->
+    <div class="main-container">
+        <!-- 左侧个人信息 -->
+        <div class="left-section">
+            <img src="./assets/profile/meanddog.jpg" alt="Rui Peng" class="profile-image fade-in">
+            
+            <div class="profile-info fade-in delay-1">
+                <h1 class="profile-name">Rui &nbsp;Peng</h1>
+                <p class="profile-title">Software Engineer</p>
+                
+                <div class="social-links fade-in delay-2">
+                    <a href="#" class="social-link" title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="social-link" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="social-link" title="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右侧主要内容 -->
+        <div class="right-section">
+            <h2 class="main-heading fade-in">I don't want to be just a coder;<br> I aspire to architect solutions.</h2>
+            <p class="sub-heading fade-in delay-1">Welcome to my Website</p>
+            <div class="description fade-in delay-3">
+                <p>This is my digital space, where I document my journey in software development. This portfolio showcases my growth from learning fundamentals to building complete applications.</p>
+                
+                <p>My work is organized into three main areas: <code>Projects</code> displays the web applications I've built while mastering new technologies, <code>Blog</code> explores development strategies and design patterns I'm learning, and <code>About Me</code> shares my personal story and technical journey.</p>
+                
+                <p>I believe in continuous learning and clean code. Every project here represents not just what I've built, but what I've learned along the way.</p>
+            </div>
+
+            <div class="contact-info fade-in delay-4" style="margin-top: 2rem;">
+                <div style="display: flex; gap: 2rem; flex-wrap: wrap; color: #666;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-envelope" style="color: #4285f4;"></i>
+                        <span>rui.peng.contact@gmail.com</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-phone" style="color: #4285f4;"></i>
+                        <span>+353 852250726</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 添加平滑滚动和交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 移动端菜单切换功能
+                const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+                const mobileNav = document.getElementById('mobileNav');
+
+                mobileMenuToggle.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    mobileNav.classList.toggle('active');
+                });
+
+                // 点击菜单项后关闭移动菜单
+                const mobileNavLinks = document.querySelectorAll('.mobile-nav-links a');
+                mobileNavLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mobileMenuToggle.classList.remove('active');
+                        mobileNav.classList.remove('active');
+                    });
+                });
+
+                // 点击页面其他区域关闭菜单
+                document.addEventListener('click', function(e) {
+                    if (!mobileMenuToggle.contains(e.target) && !mobileNav.contains(e.target)) {
+                        mobileMenuToggle.classList.remove('active');
+                        mobileNav.classList.remove('active');
+                    }
+                });
+                link.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-3px) scale(1.1)';
+                });
+                
+                link.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                });
+
+
+
+            // 导航栏滚动效果（但移动端菜单打开时不隐藏）
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                const navbar = document.querySelector('.navbar');
+                if (lastScrollY < window.scrollY && !mobileNav.classList.contains('active')) {
+                    navbar.style.transform = 'translateY(-100%)';
+                } else {
+                    navbar.style.transform = 'translateY(0)';
+                }
+                lastScrollY = window.scrollY;
+            });
+        });
+    </script>
 </body>
-<script src="./bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </html>
